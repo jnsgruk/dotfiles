@@ -21,8 +21,6 @@
         src: "{{ tmp_dir }}/sfpro.zip"
         dest: "{{ tmp_dir }}"
         remote_src: yes
-      args:
-        creates: "{{ tmp_dir }}/San-Francisco-Pro-Fonts-master/"
 
     - name: Install San Francisco Pro
       become: yes
