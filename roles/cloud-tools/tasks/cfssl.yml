@@ -1,0 +1,46 @@
+---
+- name: Install cfssl
+  block:
+    - name: Download cfssl
+      get_url:
+        url: "https://github.com/cloudflare/cfssl/releases/download/v{{ cfssl_version }}/cfssl_{{ cfssl_version }}_{{ os }}_{{ architecture }}"
+        checksum: "{{ cfssl_checksum }}"
+        dest: "{{ tmp_dir }}/cfssl"
+
+    - name: Download cfssljson
+      get_url:
+        url: "https://github.com/cloudflare/cfssl/releases/download/v{{ cfssl_version }}/cfssljson_{{ cfssl_version }}_{{ os }}_{{ architecture }}"
+        checksum: "{{ cfssljson_checksum }}"
+        dest: "{{ tmp_dir }}/cfssljson"
+
+    - name: Install cfssl and cfssljson
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/{{ item }}"
+        dest: "{{ install_dir }}/{{ item }}"
+        mode: "0755"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
+        remote_src: yes
+      with_items:
+        - cfssl
+        - cfssljson
+  when:
+    - ansible_os_family == "RedHat" or ansible_os_family == "Debian"
+    - ansible_distribution != "Ubuntu"
+
+- name: Install cfssl (Ubuntu)
+  become: yes
+  apt:
+    name: golang-cfssl
+    state: present
+    update_cache: true
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install cfssl (Arch)
+  become: yes
+  become_user: aur_builder
+  aur:
+    use: yay
+    name: cfssl
+  when: ansible_os_family == "Archlinux"

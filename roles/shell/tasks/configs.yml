@@ -1,0 +1,21 @@
+---
+- name: Create directories if non-existent
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - ~/.config/htop
+    - ~/.ssh
+
+- name: Create config symlinks
+  file:
+    src: "{{ playbook_dir }}/dots/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { src: "shell/.gitconfig", dest: ~/.gitconfig }
+    - { src: "shell/.gitignore", dest: ~/.gitignore }
+    - { src: "shell/tmux.conf", dest: ~/.tmux.conf }
+    - { src: "shell/htoprc", dest: ~/.config/htop/htoprc }

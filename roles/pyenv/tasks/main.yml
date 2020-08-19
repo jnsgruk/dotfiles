@@ -1,0 +1,41 @@
+---
+- name: Clone pyenv
+  git:
+    repo: "https://github.com/pyenv/pyenv.git"
+    dest: "~/.pyenv"
+
+- include_tasks: dependencies-debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: dependencies-redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: dependencies-arch.yml
+  when: ansible_os_family == 'Archlinux'
+
+- name: "Install Python {{ pyenv_python_version}}"
+  shell: ~/.pyenv/bin/pyenv install "{{ pyenv_python_version }}"
+  register: result
+  failed_when: result.rc != 0 and "already exists" not in result.stderr
+
+- name: "Set global Python version to {{ pyenv_python_version }}"
+  shell: ~/.pyenv/bin/pyenv global "{{ pyenv_python_version }}"
+  when: pyenv_set_global_python
+
+- name: Get pyenv root directory
+  shell: ~/.pyenv/bin/pyenv root
+  register: pyenv_root
+
+- name: Clone pyenv-virtualenvwrapper
+  git:
+    repo: "https://github.com/pyenv/pyenv-virtualenvwrapper.git"
+    dest: "{{ pyenv_root.stdout }}/plugins/pyenv-virtualenvwrapper"
+
+- name: Symlink system Python
+  become: yes
+  file:
+    src: "/usr/bin/python3"
+    dest: "/usr/bin/python"
+    state: link
+    force: yes
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'

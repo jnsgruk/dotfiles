@@ -1,0 +1,3 @@
+---
+pyenv_set_global_python: true
+pyenv_python_version: 3.8.5

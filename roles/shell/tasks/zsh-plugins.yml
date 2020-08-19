@@ -1,0 +1,9 @@
+---
+- name: Install zsh plugins & themes
+  git:
+    repo: "https://github.com/{{ item.repo }}"
+    dest: "~/.oh-my-zsh/custom/{{ item.dest }}"
+  loop:
+    - { repo: "romkatv/powerlevel10k", dest: "themes/powerlevel10k" }
+    - { repo: "zsh-users/zsh-autosuggestions", dest: "plugins/zsh-autosuggestions" }
+    - { repo: "zsh-users/zsh-syntax-highlighting", dest: "plugins/zsh-syntax-highlighting" }

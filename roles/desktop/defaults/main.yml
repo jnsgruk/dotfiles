@@ -1,0 +1,3 @@
+---
+display: "{{ lookup('env','DISPLAY') }}{{ lookup('env', 'WAYLAND_DISPLAY') }}"
+desktop_force: no # Install even if there is no display detected

@@ -1,0 +1,20 @@
+---
+- name: Install Python build dependencies (RHEL/Fedora)
+  become: true
+  yum:
+    name: "{{ item }}"
+    update_cache: true
+    state: present
+  loop:
+    - "@development"
+    - zlib-devel
+    - bzip2
+    - bzip2-devel
+    - readline-devel
+    - sqlite
+    - sqlite-devel
+    - openssl-devel
+    - xz
+    - xz-devel
+    - libffi-devel
+    - findutils

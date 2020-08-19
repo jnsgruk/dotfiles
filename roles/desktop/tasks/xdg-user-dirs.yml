@@ -1,0 +1,12 @@
+---
+- name: Install xdg-user-dirs
+  package:
+    name: xdg-user-dirs
+    state: present
+
+- name: Symlink xdg-user-dirs config
+  file:
+    src: "{{ playbook_dir }}/dots/desktop/user-dirs.dirs"
+    dest: "~/.config/user-dirs.dirs"
+    state: link
+    force: yes

@@ -1,0 +1,41 @@
+---
+- name: Install terraform
+  block:
+    - name: Dependencies
+      become: yes
+      package:
+        name: unzip
+        state: present
+
+    - name: Download terraform archive
+      get_url:
+        url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_{{ os }}_{{ architecture }}.zip"
+        checksum: "{{ terraform_checksum }}"
+        dest: "{{ tmp_dir }}/terraform.zip"
+
+    - name: Extract terraform archive
+      unarchive:
+        src: "{{ tmp_dir }}/terraform.zip"
+        dest: "{{ tmp_dir }}"
+        remote_src: yes
+
+    - name: Install terraform
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/{{ item }}"
+        dest: "{{ install_dir }}/{{ item }}"
+        mode: "0755"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
+        remote_src: yes
+      with_items:
+        - terraform
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+- name: Install terraform (Arch)
+  become: yes
+  pacman:
+    name: terraform
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Archlinux"

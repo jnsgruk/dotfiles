@@ -1,0 +1,35 @@
+---
+- name: Install Helm
+  block:
+    - name: Download helm tarball
+      get_url:
+        url: "https://get.helm.sh/helm-v{{ helm_version }}-{{ os }}-{{ architecture }}.tar.gz"
+        checksum: "{{ helm_checksum }}"
+        dest: "{{ tmp_dir }}/helm.tar.gz"
+
+    - name: Extract helm tarball
+      unarchive:
+        src: "{{ tmp_dir }}/helm.tar.gz"
+        dest: "{{ tmp_dir }}"
+        remote_src: yes
+
+    - name: Install helm
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/{{ os }}-{{ architecture }}/{{ item }}"
+        dest: "{{ install_dir }}/{{ item }}"
+        mode: "0755"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
+        remote_src: yes
+      with_items:
+        - helm
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+- name: Install Helm (Arch)
+  become: yes
+  pacman:
+    name: helm
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Archlinux"

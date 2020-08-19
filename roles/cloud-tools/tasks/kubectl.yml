@@ -1,0 +1,29 @@
+---
+- name: Install kubectl
+  block:
+    - name: Download kubectl
+      get_url:
+        url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/{{ os }}/{{ architecture }}/kubectl"
+        checksum: "{{ kubectl_checksum }}"
+        dest: "{{ tmp_dir }}/kubectl"
+
+    - name: Install kubectl
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/{{ item }}"
+        dest: "{{ install_dir }}/{{ item }}"
+        mode: "0755"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
+        remote_src: yes
+      with_items:
+        - kubectl
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+- name: Install kubectl (Arch)
+  become: yes
+  pacman:
+    name: kubectl
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Archlinux"

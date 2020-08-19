@@ -1,0 +1,29 @@
+---
+- name: Install terragrunt
+  block:
+    - name: Download terragrunt
+      get_url:
+        url: "https://github.com/gruntwork-io/terragrunt/releases/download/v{{ terragrunt_version }}/terragrunt_{{ os }}_{{ architecture }}"
+        checksum: "{{ terragrunt_checksum }}"
+        dest: "{{ tmp_dir }}/terragrunt"
+
+    - name: Install terragrunt
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/{{ item }}"
+        dest: "{{ install_dir }}/{{ item }}"
+        mode: "0755"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
+        remote_src: yes
+      with_items:
+        - terragrunt
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+- name: Install terragrunt (Arch)
+  become: yes
+  become_user: aur_builder
+  aur:
+    use: yay
+    name: terragrunt-bin
+  when: ansible_os_family == "Archlinux"

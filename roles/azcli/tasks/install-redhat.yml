@@ -1,0 +1,19 @@
+---
+- name: Import Microsoft repository key
+  become: yes
+  rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: Add Microsoft repo
+  become: yes
+  template:
+    src: templates/azure-cli.repo.j2
+    dest: /etc/yum.repos.d/azure-cli.repo
+
+- name: Install the Azure CLI
+  become: yes
+  yum:
+    name: azure-cli
+    state: present
+    update_cache: yes

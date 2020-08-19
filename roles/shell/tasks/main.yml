@@ -1,0 +1,24 @@
+---
+- name: Install basic shell/cli packages
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - htop
+    - curl
+    - wget
+    - tmux
+    - jq
+    - unzip
+
+- include_tasks: oh-my-zsh.yml
+- include_tasks: zsh-plugins.yml
+- include_tasks: vim.yml
+- include_tasks: configs.yml
+
+- include_tasks: install-exa.yml
+  when: install_exa
+- include_tasks: install-bat.yml
+  when: install_bat

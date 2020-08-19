@@ -1,0 +1,9 @@
+---
+install_dir: /usr/local/bin
+tmp_dir: /tmp
+
+exa_version: 0.9.0
+install_exa: true
+
+bat_version: 0.15.4
+install_bat: true

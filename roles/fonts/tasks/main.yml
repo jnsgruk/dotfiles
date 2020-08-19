@@ -1,0 +1,40 @@
+---
+- name: Install Fonts
+  block:
+    - name: Create custom fonts dir
+      become: yes
+      file:
+        path: "{{ install_dir }}"
+        state: "directory"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+
+    - name: Fetch San Francisco Pro
+      get_url:
+        url: "https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts/archive/master.zip"
+        dest: "{{ tmp_dir }}/sfpro.zip"
+        mode: "0600"
+
+    - name: Extract San Francisco Pro
+      unarchive:
+        src: "{{ tmp_dir }}/sfpro.zip"
+        dest: "{{ tmp_dir }}"
+        remote_src: yes
+      args:
+        creates: "{{ tmp_dir }}/San-Francisco-Pro-Fonts-master/"
+
+    - name: Install San Francisco Pro
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/San-Francisco-Pro-Fonts-master/"
+        dest: "{{ install_dir }}/"
+        mode: "0644"
+
+    - name: Install the Meslo LGMDZ Nerd Font
+      become: yes
+      get_url:
+        url: "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/M-DZ/Regular/complete/Meslo%20LG%20M%20DZ%20Regular%20Nerd%20Font%20Complete%20Mono.ttf"
+        dest: "{{ install_dir }}/MesloLGMDZNerdFontMono.ttf"
+        mode: "0644"
+  when: fonts_force or (display | length > 0)

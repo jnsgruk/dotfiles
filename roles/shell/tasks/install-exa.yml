@@ -1,0 +1,34 @@
+---
+- name: Install Exa (Debian/Ubuntu/RHEL/Fedora)
+  become: true
+  block:
+    - name: Download exa
+      get_url:
+        url: "https://github.com/ogham/exa/releases/download/v{{ exa_version }}/exa-linux-x86_64-{{ exa_version }}.zip"
+        dest: "{{ tmp_dir }}/exa.zip"
+        mode: "0600"
+
+    - name: Extract exa
+      unarchive:
+        src: "{{ tmp_dir }}/exa.zip"
+        dest: "{{ tmp_dir }}"
+        remote_src: yes
+
+    - name: Install exa
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/exa-linux-x86_64"
+        dest: "{{ install_dir }}/exa"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+        remote_src: yes
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+
+- name: Install Exa (Arch)
+  become: yes
+  pacman:
+    name: exa
+    state: present
+    update_cache: true
+  when: ansible_os_family == 'Archlinux'

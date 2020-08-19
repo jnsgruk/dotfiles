@@ -1,0 +1,36 @@
+---
+- name: Install dependencies from archive
+  become: yes
+  apt:
+    update_cache: yes
+    state: present
+    name: "{{ item }}"
+  loop:
+    - ca-certificates
+    - curl
+    - apt-transport-https
+    - software-properties-common
+    - gnupg-agent
+
+- name: Trust Docker apt signing key
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add apt source list
+  become: yes
+  template:
+    src: templates/docker.list.j2
+    dest: /etc/apt/sources.list.d/docker.list
+
+- name: Install Docker
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io

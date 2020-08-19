@@ -1,0 +1,26 @@
+---
+dependencies:
+  - kewlfft.aur
+
+galaxy_info:
+  role_name: cloud-tools
+  author: jnsgruk
+  description: Cloud-native tooling installer for Kubernetes and others
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Archlinux
+      versions:
+        - all

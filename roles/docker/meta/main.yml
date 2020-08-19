@@ -1,0 +1,20 @@
+---
+dependencies:
+  - kewlfft.aur
+
+galaxy_info:
+  role_name: azcli
+  author: jnsgruk
+  description: Installs Docker
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Archlinux
+      versions:
+        - all

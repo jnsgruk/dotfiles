@@ -1,0 +1,37 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Setup shell
+      include_role:
+        name: shell
+      when: install_shell
+
+    - name: Setup fonts
+      include_role:
+        name: fonts
+      when: install_fonts
+
+    - name: Setup desktop
+      include_role:
+        name: desktop
+      when: install_desktop
+
+    - name: Setup pyenv
+      include_role:
+        name: pyenv
+      when: install_pyenv
+
+    - name: Setup cloud tools
+      include_role:
+        name: cloud-tools
+      when: install_cloud_tools
+
+    - name: Setup Azure CLI
+      include_role:
+        name: azcli
+      when: install_azcli
+
+    - name: Setup Docker
+      include_role:
+        name: docker
+      when: install_docker
