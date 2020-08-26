@@ -29,3 +29,4 @@ EOF
 cat "${DIST_DIR}/temp.sh" "${DIST_DIR}/dotfiles.tar.gz" > "${DIST_DIR}/installer.sh"
 rm -rf "${DIST_DIR}/temp.sh" "${DIST_DIR}/dotfiles.tar.gz"
 chmod +x installer.sh
+cp "${SCRIPT_DIR}/net-provision.sh" "${DIST_DIR}/net-provision.sh" 
