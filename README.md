@@ -8,9 +8,7 @@ This repository contains both my [configs/dotfiles](./dots) and some associated 
 - [ ] Ensure this works for Raspbian/RaspberryPi OS
 - [ ] Make code compliant with `ansible-lint` rules
 
-### Usage
-
-The [setup.sh](./setup.sh) script is a wrapper around the Ansible roles. It will:
+### What does this do?
 
 - Download and install Ansible
 - Fetch any roles required from Ansible Galaxy
@@ -18,7 +16,21 @@ The [setup.sh](./setup.sh) script is a wrapper around the Ansible roles. It will
 - Offer the opportunity to edit the `overrides.yml` before contining
 - Provision the host with Ansible according to the preferences in the `overrides.yml`
 
-#### What is the overrides file?
+### Installation methods
+
+Aside from simply cloning this repo and running the installer, like so:
+
+```
+$ git clone https://github.com/jnsgruk/dotfiles
+$ ./dotfiles/setup.sh
+```
+
+There are two alternate installation methods. The [latest release](https://github.com/jnsgruk/dotfiles/releases/latest) contains two install scripts:
+
+- [installer.sh](https://github.com/jnsgruk/dotfiles/releases/latest/download/installer.sh) is a self-contained, self-extracting installer that when run, will extract an archive of this repository into the current working directory and then run the installer
+- [net-provision.sh](https://github.com/jnsgruk/dotfiles/releases/latest/download/net-provision.sh) will install `git`, then proceed to clone this repo into `~/dotfiles` and run the installer
+
+### What is the overrides file?
 
 The `override.yml` file is created during setup, and used to toggle which roles are applied to the machine. An example is:
 
@@ -33,6 +45,6 @@ install_azcli: false
 install_docker: false
 ```
 
-#### What do the roles do?
+### What do the roles do?
 
 There are README files for each of the Roles. They should answer any questions...
