@@ -1,5 +1,6 @@
 ---
 - name: Install xdg-user-dirs
+  become: true
   package:
     name: xdg-user-dirs
     state: present
