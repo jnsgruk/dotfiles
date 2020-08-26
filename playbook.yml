@@ -35,3 +35,8 @@
       include_role:
         name: docker
       when: install_docker
+
+    - name: Setup goenv
+      include_role:
+        name: goenv
+      when: install_goenv

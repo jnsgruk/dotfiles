@@ -14,9 +14,7 @@
   when: ansible_os_family == 'Archlinux'
 
 - name: "Install Python {{ pyenv_python_version}}"
-  shell: ~/.pyenv/bin/pyenv install "{{ pyenv_python_version }}"
-  register: result
-  failed_when: result.rc != 0 and "already exists" not in result.stderr
+  shell: ~/.pyenv/bin/pyenv install -s "{{ pyenv_python_version }}"
 
 - name: "Set global Python version to {{ pyenv_python_version }}"
   shell: ~/.pyenv/bin/pyenv global "{{ pyenv_python_version }}"
