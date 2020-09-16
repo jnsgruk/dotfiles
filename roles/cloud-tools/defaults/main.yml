@@ -13,7 +13,7 @@ helm_version: 3.3.1
 helm_checksum: "sha256:81e3974927b4f76e9f679d1f6d6b45748f8c84081a571741d48b2902d816e14c"
 
 istioctl_version: 1.6.7
-istioctl_checksum: "sha256:3243d2c4bb7a116aa04a6bc21d289fb73cdc704988af1749d2a1f0fb5426be36"
+istioctl_checksum: "sha256:6f908b33c7ebf0598917e0ed495fef93525757c64c7d8e21ec856401509cd4c1"
 
 cfssl_version: 1.4.1
 cfssl_checksum: "sha256:d01a26bc88851aab4c986e820e7b3885cedf1316a9c26a98fbba83105cfd7b87"
