@@ -6,24 +6,24 @@ os: "linux"
 owner: root
 group: root
 
-kubectl_version: 1.18.6
-kubectl_checksum: "sha256:62fcb9922164725c7cba5747562f2ad2f4d834ad0a458c1e4c794cc203dcdfb3"
+kubectl_version: 1.19.1
+kubectl_checksum: "sha256:da4de99d4e713ba0c0a5ef6efe1806fb09c41937968ad9da5c5f74b79b3b38f5"
 
-helm_version: 3.2.4
-helm_checksum: "sha256:https://get.helm.sh/helm-v{{ helm_version }}-{{ os }}-{{ architecture }}.tar.gz.sha256sum"
+helm_version: 3.3.1
+helm_checksum: "sha256:81e3974927b4f76e9f679d1f6d6b45748f8c84081a571741d48b2902d816e14c"
 
 istioctl_version: 1.6.7
-istioctl_checksum: "sha256:https://github.com/istio/istio/releases/download/{{ istioctl_version }}/istioctl-{{ istioctl_version }}-{{ os }}-{{ architecture }}.tar.gz.sha256"
+istioctl_checksum: "sha256:3243d2c4bb7a116aa04a6bc21d289fb73cdc704988af1749d2a1f0fb5426be36"
 
 cfssl_version: 1.4.1
 cfssl_checksum: "sha256:d01a26bc88851aab4c986e820e7b3885cedf1316a9c26a98fbba83105cfd7b87"
 cfssljson_checksum: "sha256:05d67e05cacb8b2e78e737637acdcf9127b0732f0c4104403e9e9b74032fd685"
 
-terraform_version: 0.13.0
-terraform_checksum: "sha256:9ed437560faf084c18716e289ea712c784a514bdd7f2796549c735d439dbe378"
+terraform_version: 0.13.2
+terraform_checksum: "sha256:6c1c6440c5cb199e85926aea65773450564f501fddcd7876f453ba95b45ba746"
 
 packer_version: 1.6.1
 packer_checksum: "sha256:8dcf97610e8c3907c23e25201dce20b498e1939e89878dec01de6975733c7729"
 
-terragrunt_version: 0.23.33
-terragrunt_checksum: "sha256:ce67c9d59af85a98046f22cf39d09b4f0e6fe9746334764bbb620bcbd71f75b7"
+terragrunt_version: 0.24.4
+terragrunt_checksum: "sha256:f65a22becc185af5291870b04653939cab0cee86beda97fd774feb6dc822b416"
