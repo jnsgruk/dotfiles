@@ -6,3 +6,5 @@
 - include_tasks: install-arch.yml
   when:
     - ansible_os_family == 'Archlinux'
+
+- include_tasks: install-docker-compose.yml
