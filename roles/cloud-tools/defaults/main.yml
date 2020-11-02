@@ -6,24 +6,27 @@ os: "linux"
 owner: root
 group: root
 
-kubectl_version: 1.19.1
-kubectl_checksum: "sha256:da4de99d4e713ba0c0a5ef6efe1806fb09c41937968ad9da5c5f74b79b3b38f5"
+# https://github.com/helm/helm/releases/latest
+helm_version: 3.4.0
+helm_checksum: "sha256:270acb0f085b72ec28aee894c7443739271758010323d72ced0e92cd2c96ffdb"
 
-helm_version: 3.3.1
-helm_checksum: "sha256:81e3974927b4f76e9f679d1f6d6b45748f8c84081a571741d48b2902d816e14c"
+# https://github.com/istio/istio/releases/latest
+istioctl_version: 1.6.13
+istioctl_checksum: "sha256:a6479226fb2e10685e57ba8954bf2600562352c4a191ce9b8598bb24fb6fe3e6"
 
-istioctl_version: 1.6.7
-istioctl_checksum: "sha256:6f908b33c7ebf0598917e0ed495fef93525757c64c7d8e21ec856401509cd4c1"
+# https://github.com/cloudflare/cfssl/releases/latest
+cfssl_version: 1.5.0
+cfssl_checksum: "sha256:d5cea17ec190dd19ea300366c6fd7d2b41c8d9a599b30be79c290d1477f82c68"
+cfssljson_checksum: "sha256:3d33ef410313ca242ebdae1d9092447a8b02681a2b6d21d0a272f6e8d6d5191e"
 
-cfssl_version: 1.4.1
-cfssl_checksum: "sha256:d01a26bc88851aab4c986e820e7b3885cedf1316a9c26a98fbba83105cfd7b87"
-cfssljson_checksum: "sha256:05d67e05cacb8b2e78e737637acdcf9127b0732f0c4104403e9e9b74032fd685"
+# https://www.terraform.io/downloads.html
+terraform_version: 0.13.5
+terraform_checksum: "sha256:f7b7a7b1bfbf5d78151cfe3d1d463140b5fd6a354e71a7de2b5644e652ca5147"
 
-terraform_version: 0.13.2
-terraform_checksum: "sha256:6c1c6440c5cb199e85926aea65773450564f501fddcd7876f453ba95b45ba746"
+# https://www.packer.io/downloads
+packer_version: 1.6.5
+packer_checksum: "sha256:a49f6408a50c220fe3f1a6192ea21134e2e8f31092c507614cd27ad4f913234b"
 
-packer_version: 1.6.1
-packer_checksum: "sha256:8dcf97610e8c3907c23e25201dce20b498e1939e89878dec01de6975733c7729"
-
-terragrunt_version: 0.24.4
-terragrunt_checksum: "sha256:f65a22becc185af5291870b04653939cab0cee86beda97fd774feb6dc822b416"
+# https://github.com/gruntwork-io/terragrunt/releases
+terragrunt_version: 0.26.0
+terragrunt_checksum: "sha256:fc59288cb24e12d2aad54870d9cc65435c9086d633d8ea2e9160c3ce4e0c9940"

@@ -2,8 +2,12 @@
 install_dir: /usr/local/bin
 tmp_dir: /tmp
 
+# https://github.com/ogham/exa/releases/latest
 exa_version: 0.9.0
+exa_checksum: "sha256:53d8746b1ca2d945c5b75767edc83addfd1fe3c4a2b0b766c07172473330a50b"
 install_exa: true
 
-bat_version: 0.15.4
+# https://github.com/sharkdp/bat/releases/latest
+bat_version: 0.16.0
+bat_checksum: "sha256:a9e2d7f5ad5962bca8bd742536c80f9d4d5f42cb1b160bf19671907c3507ab1e"
 install_bat: true

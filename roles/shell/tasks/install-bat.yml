@@ -5,6 +5,7 @@
     - name: Download bat
       get_url:
         url: "https://github.com/sharkdp/bat/releases/download/v{{ bat_version }}/bat-v{{ bat_version }}-x86_64-unknown-linux-gnu.tar.gz"
+        checksum: "{{ bat_checksum }}"
         dest: "{{ tmp_dir }}/bat.tar.gz"
         mode: "0600"
 

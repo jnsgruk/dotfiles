@@ -4,7 +4,6 @@ This repository contains both my [configs/dotfiles](./dots) and some associated 
 
 ### TODO/Contributing
 
-- [ ] Update [Docker Role](./roles/docker) for RedHat/Fedora/CentOS
 - [ ] Ensure this works for Raspbian/RaspberryPi OS
 - [ ] Make code compliant with `ansible-lint` rules
 

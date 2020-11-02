@@ -15,6 +15,7 @@ Defaults:
 
 ```yaml
 ---
-docker_compose_version: 1.26.2
+docker_compose_version: 1.27.4
+docker_compose_checksum: "sha256:04216d65ce0cd3c27223eab035abfeb20a8bef20259398e3b9d9aa8de633286d"
 install_dir: /usr/local/bin
 ```

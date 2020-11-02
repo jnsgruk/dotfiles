@@ -3,6 +3,10 @@
   when:
     - ansible_os_family == 'Debian'
 
+- include_tasks: install-redhat.yml
+  when:
+    - ansible_os_family == 'RedHat'
+
 - include_tasks: install-arch.yml
   when:
     - ansible_os_family == 'Archlinux'
