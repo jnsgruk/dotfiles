@@ -9,8 +9,9 @@ bindkey '^[[1;9D' backward-word # Ctrl+LeftArrow
 
 zstyle :compinstall filename $HOME/.zshrc
 autoload -U colors && colors
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
 
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
@@ -22,3 +23,8 @@ autoload -U promptinit
 promptinit
 
 disable -r time
+
+# Enable Azure CLI completions if available
+if [[ -f /etc/bash_completion.d/azure-cli ]]; then
+   source /etc/bash_completion.d/azure-cli
+fi

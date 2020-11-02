@@ -18,9 +18,11 @@ fi
 
 source "${ZSH}/oh-my-zsh.sh"
 
+# Custom zsh config
+[[ -f "${HOME}/.zsh_config/config.zsh" ]] && source ~/.zsh_config/config.zsh
 # Custom zsh functions
-[[ ! -f "${HOME}/.zsh_config/functions.zsh" ]] || source ~/.zsh_config/functions.zsh
+[[ -f "${HOME}/.zsh_config/functions.zsh" ]] && source ~/.zsh_config/functions.zsh
 # Custom zsh aliases
-[[ ! -f "${HOME}/.zsh_config/aliases.zsh" ]] || source ~/.zsh_config/aliases.zsh
+[[ -f "${HOME}/.zsh_config/aliases.zsh" ]] && source ~/.zsh_config/aliases.zsh
 # Custom zsh env
-[[ ! -f "${HOME}/.zsh_config/env.zsh" ]] || source ~/.zsh_config/env.zsh
+[[ -f "${HOME}/.zsh_config/env.zsh" ]] && source ~/.zsh_config/env.zsh
