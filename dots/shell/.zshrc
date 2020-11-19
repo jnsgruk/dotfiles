@@ -26,3 +26,5 @@ source "${ZSH}/oh-my-zsh.sh"
 [[ -f "${HOME}/.zsh_config/aliases.zsh" ]] && source ~/.zsh_config/aliases.zsh
 # Custom zsh env
 [[ -f "${HOME}/.zsh_config/env.zsh" ]] && source ~/.zsh_config/env.zsh
+# Created by `userpath` on 2020-11-13 08:10:16
+export PATH="$PATH:/home/jon/.local/bin"
