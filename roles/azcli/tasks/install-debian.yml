@@ -19,6 +19,19 @@
     keyring: /etc/apt/trusted.gpg.d/microsoft.gpg
     state: present
 
+- name: Get Ubuntu Release
+  command: lsb_release -cs
+  register: lsb_output
+
+- name: Set Release Repo (xenial/bionic/focal)
+  set_fact:
+    ubuntu_release: "{{ lsb_output.stdout }}"
+
+- name: Set Release Repo (groovy)
+  set_fact:
+    ubuntu_release: focal
+  when: lsb_output.stdout == "groovy"
+
 - name: Add apt source list
   become: yes
   template:

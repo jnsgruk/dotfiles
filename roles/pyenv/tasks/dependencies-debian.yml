@@ -21,5 +21,13 @@
     - tk-dev
     - libffi-dev
     - liblzma-dev
-    - python-openssl
+    - python3-openssl
     - git
+
+- name: Install Python 2 dependencies
+  become: true
+  apt:
+    name: python-openssl
+    update_cache: true
+    state: present
+  when: ansible_distribution_release == "focal" or ansible_distribution_release == "bionic"

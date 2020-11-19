@@ -5,6 +5,7 @@
     - name: Download exa
       get_url:
         url: "https://github.com/ogham/exa/releases/download/v{{ exa_version }}/exa-linux-x86_64-{{ exa_version }}.zip"
+        checksum: "{{ exa_checksum }}"
         dest: "{{ tmp_dir }}/exa.zip"
         mode: "0600"
 
