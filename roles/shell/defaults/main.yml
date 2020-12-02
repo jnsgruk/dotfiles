@@ -8,6 +8,6 @@ exa_checksum: "sha256:53d8746b1ca2d945c5b75767edc83addfd1fe3c4a2b0b766c071724733
 install_exa: true
 
 # https://github.com/sharkdp/bat/releases/latest
-bat_version: 0.16.0
-bat_checksum: "sha256:a9e2d7f5ad5962bca8bd742536c80f9d4d5f42cb1b160bf19671907c3507ab1e"
+bat_version: 0.17.1
+bat_checksum: "sha256:23d79944fcf4291cca47de9d7017f4b5ee0db2f44402be427f5fc61b29b47bfe"
 install_bat: true
