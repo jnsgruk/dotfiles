@@ -1,0 +1,41 @@
+---
+- name: Install vault
+  block:
+    - name: Dependencies
+      become: yes
+      package:
+        name: unzip
+        state: present
+
+    - name: Download vault archive
+      get_url:
+        url: "https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_{{ os }}_{{ architecture }}.zip"
+        checksum: "{{ vault_checksum }}"
+        dest: "{{ tmp_dir }}/vault.zip"
+
+    - name: Extract vault archive
+      unarchive:
+        src: "{{ tmp_dir }}/vault.zip"
+        dest: "{{ tmp_dir }}"
+        remote_src: yes
+
+    - name: Install vault
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/{{ item }}"
+        dest: "{{ install_dir }}/{{ item }}"
+        mode: "0755"
+        owner: "{{ owner }}"
+        group: "{{ group }}"
+        remote_src: yes
+      with_items:
+        - vault
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+- name: Install vault (Arch)
+  become: yes
+  pacman:
+    name: vault
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Archlinux"

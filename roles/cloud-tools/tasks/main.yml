@@ -7,6 +7,7 @@
 - include_tasks: cfssl.yml
 - include_tasks: helm.yml
 - include_tasks: packer.yml
+- include_tasks: vault.yml
 - include_tasks: terraform.yml
 - include_tasks: terragrunt.yml
 
