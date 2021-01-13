@@ -23,8 +23,8 @@ alias wgu='sudo wg-quick up'
 alias wgd='sudo wg-quick down'
 
 # Docker Aliases
-alias docker='sudo docker'
-alias docker-compose='sudo docker-compose'
+# alias docker='sudo docker'
+# alias docker-compose='sudo docker-compose'
 
 if command -v exa >/dev/null; then
   alias ls='exa -gl --git --color=automatic'
