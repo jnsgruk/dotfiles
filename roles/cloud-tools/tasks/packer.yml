@@ -21,7 +21,7 @@
       template:
         src: templates/hashicorp.list.j2
         dest: /etc/apt/sources.list.d/hashicorp.list
-      variables:
+      vars:
         hashi_arch: "{{ arch_output.stdout }}"
         hashi_release: "{{ lsb_output.stdout }}"
 
