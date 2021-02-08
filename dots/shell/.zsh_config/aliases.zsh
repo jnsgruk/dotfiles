@@ -25,6 +25,8 @@ alias wgd='sudo wg-quick down'
 # Docker Aliases
 # alias docker='sudo docker'
 # alias docker-compose='sudo docker-compose'
+alias shellcheck="docker run --rm -v '$PWD:/mnt' -it koalaman/shellcheck"
+alias hadolint="docker run --rm -i hadolint/hadolint <"
 
 if command -v exa >/dev/null; then
   alias ls='exa -gl --git --color=automatic'

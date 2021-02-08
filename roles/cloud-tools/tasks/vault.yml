@@ -1,36 +1,71 @@
 ---
-- name: Install vault
+- name: Install vault (Debian)
   block:
-    - name: Dependencies
+    - name: Trust Hashicorp apt signing key
       become: yes
-      package:
-        name: unzip
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        keyring: /etc/apt/trusted.gpg.d/hashicorp.gpg
         state: present
 
-    - name: Download vault archive
-      get_url:
-        url: "https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_{{ os }}_{{ architecture }}.zip"
-        checksum: "{{ vault_checksum }}"
-        dest: "{{ tmp_dir }}/vault.zip"
+    - name: Get Ubuntu Release
+      command: lsb_release -cs
+      register: lsb_output
 
-    - name: Extract vault archive
-      unarchive:
-        src: "{{ tmp_dir }}/vault.zip"
-        dest: "{{ tmp_dir }}"
-        remote_src: yes
+    - name: Get Architecture
+      command: dpkg --print-architecture
+      register: arch_output
+
+    - name: Add apt source list
+      become: yes
+      template:
+        src: templates/hashicorp.list.j2
+        dest: /etc/apt/sources.list.d/hashicorp.list
+      variables:
+        hashi_arch: "{{ arch_output.stdout }}"
+        hashi_release: "{{ lsb_output.stdout }}"
 
     - name: Install vault
       become: yes
+      apt:
+        name: vault
+        state: present
+        update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install vault (RHEL/CentOS)
+  block:
+    - name: Add Hashicorp repo
+      become: yes
       copy:
-        src: "{{ tmp_dir }}/{{ item }}"
-        dest: "{{ install_dir }}/{{ item }}"
-        mode: "0755"
-        owner: "{{ owner }}"
-        group: "{{ group }}"
-        remote_src: yes
-      with_items:
-        - vault
-  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+        src: files/hashicorp-rhel.repo
+        dest: /etc/yum.repos.d/hashicorp.repo
+        mode: 0644
+
+    - name: Install vault
+      become: yes
+      yum:
+        name: vault
+        state: present
+        update_cache: yes
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+
+- name: Install vault (Fedora)
+  block:
+    - name: Add Hashicorp repo
+      become: yes
+      copy:
+        src: files/hashicorp-fedora.repo
+        dest: /etc/yum.repos.d/hashicorp.repo
+        mode: 0644
+
+    - name: Install vault
+      become: yes
+      yum:
+        name: vault
+        state: present
+        update_cache: yes
+  when: ansible_distribution == "Fedora"
 
 - name: Install vault (Arch)
   become: yes
