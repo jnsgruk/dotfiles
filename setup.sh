@@ -36,6 +36,7 @@ install_cloud_tools: true
 install_azcli: true
 install_docker: true
 install_goenv: true
+install_krypt: true
 EOF
   # Prompt the user if they would like to edit the default overrides (which installs everything)
   echo
