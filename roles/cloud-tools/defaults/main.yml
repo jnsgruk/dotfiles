@@ -12,7 +12,7 @@ helm_checksum: "sha256:01b317c506f8b6ad60b11b1dc3f093276bb703281cb1ae01132752253
 
 # https://github.com/istio/istio/releases/latest
 istioctl_version: 1.9.0
-istioctl_checksum: "sha256:51c9e23a7be9211c9fe0fc1083cae89975984e7a87646db6f42014765a986d19"
+istioctl_checksum: "sha256:6392da37788748c0d1628dc3d96e50f8da89766873feb8990c7ff13d1e5a6bf4"
 
 # https://github.com/cloudflare/cfssl/releases/latest
 cfssl_version: 1.5.0
