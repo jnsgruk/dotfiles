@@ -1,0 +1,34 @@
+---
+- name: Create aur_builder user
+  become: true
+  user:
+    name: aur_builder
+    group: wheel
+
+- name: Configure aur_builder user
+  become: true
+  lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    create: yes
+    validate: "visudo -cf %s"
+
+- name: Install Krypt (Arch)
+  become: yes
+  become_user: aur_builder
+  aur:
+    use: yay
+    name: kr-bin
+
+- name: Delete aur_builder user
+  become: true
+  user:
+    name: aur_builder
+    state: absent
+    remove: yes
+
+- name: Reconfigure sudoers (remove aur_builder)
+  become: true
+  file:
+    path: /etc/sudoers.d/11-install-aur_builder
+    state: absent

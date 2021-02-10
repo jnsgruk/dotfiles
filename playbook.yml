@@ -40,3 +40,8 @@
       include_role:
         name: goenv
       when: install_goenv
+
+    - name: Setup Krypt
+      include_role:
+        name: krypt
+      when: install_krypt

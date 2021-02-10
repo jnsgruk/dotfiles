@@ -1,8 +1,11 @@
 ---
+dependencies:
+  - kewlfft.aur
+
 galaxy_info:
-  role_name: azcli
+  role_name: krypt
   author: jnsgruk
-  description: Installs Docker
+  description: Installs Krypt.co tools
   license: MIT
   min_ansible_version: 2.4
   platforms:

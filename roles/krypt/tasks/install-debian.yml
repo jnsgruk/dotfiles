@@ -1,0 +1,30 @@
+---
+- name: Install dependencies from archive
+  become: yes
+  apt:
+    update_cache: yes
+    state: present
+    name: "{{ item }}"
+  loop:
+    - dirmngr
+    - apt-transport-https
+    - software-properties-common
+
+- name: Trust Krypt.co apt signing key
+  become: yes
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: C4A05888A1C4FA02E1566F859F2A29A569653940
+
+- name: Add apt source list
+  become: yes
+  copy:
+    src: files/kryptco.list
+    dest: /etc/apt/sources.list.d/kryptco.list
+
+- name: Install Krypt
+  become: yes
+  apt:
+    name: kr
+    state: present
+    update_cache: yes
