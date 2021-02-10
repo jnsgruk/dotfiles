@@ -43,4 +43,9 @@ if [[ -d /var/lib/snapd ]]; then
   export PATH="/snap/bin:${PATH}"
 fi
 
+# Tilix VTE Config
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
 export PATH="${HOME}/bin:${PATH}"
