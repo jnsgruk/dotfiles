@@ -11,8 +11,8 @@ helm_version: 3.5.2
 helm_checksum: "sha256:01b317c506f8b6ad60b11b1dc3f093276bb703281cb1ae01132752253ec706a2"
 
 # https://github.com/istio/istio/releases/latest
-istioctl_version: 1.8.2
-istioctl_checksum: "sha256:1eda8d3700eeb1dd6a6351d7b55f0a0d01ac4355b5c2ab4c77ec320b47f966db"
+istioctl_version: 1.9.0
+istioctl_checksum: "sha256:51c9e23a7be9211c9fe0fc1083cae89975984e7a87646db6f42014765a986d19"
 
 # https://github.com/cloudflare/cfssl/releases/latest
 cfssl_version: 1.5.0
@@ -20,5 +20,5 @@ cfssl_checksum: "sha256:d5cea17ec190dd19ea300366c6fd7d2b41c8d9a599b30be79c290d14
 cfssljson_checksum: "sha256:3d33ef410313ca242ebdae1d9092447a8b02681a2b6d21d0a272f6e8d6d5191e"
 
 # https://github.com/gruntwork-io/terragrunt/releases
-terragrunt_version: 0.26.7
-terragrunt_checksum: "sha256:ac9df2de05d8fd14e3f8deb91899814461ac89f9cecb6a1fb44c8e74e1c6bf06"
+terragrunt_version: 0.28.2
+terragrunt_checksum: "sha256:86707bac30900bfac61e390d9c5c90febcc6db956aa320a72c902d989ee7fe8d"
