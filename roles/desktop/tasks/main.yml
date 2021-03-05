@@ -8,5 +8,6 @@
     - include_tasks: 1password.yml
     - include_tasks: discord.yml
     - include_tasks: spotify.yml
+    - include_tasks: nextcloud.yml
     # - include_tasks: terminator.yml
   when: desktop_force or (display | length > 0)

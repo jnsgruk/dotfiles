@@ -37,6 +37,7 @@ install_azcli: true
 install_docker: true
 install_goenv: true
 install_krypt: true
+install_libvirt: true
 EOF
   # Prompt the user if they would like to edit the default overrides (which installs everything)
   echo

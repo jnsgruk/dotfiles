@@ -45,3 +45,8 @@
       include_role:
         name: krypt
       when: install_krypt
+
+    - name: Setup libvirt
+      include_role:
+        name: libvirt
+      when: install_libvirt

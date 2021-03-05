@@ -9,6 +9,7 @@ Ansible role to install and configure:
 - 1password
 - discord
 - spotify
+- nextcloud client
 - ~~terminator~~
 
 Currently tested on Ubuntu and Arch Linux. Role will test to see if there is a GUI on the machine by inspecting the DISPLAY and WAYLAND_DISPLAY environment variables. This behavious can be overridden with the `desktop_force` variable.
