@@ -1,0 +1,47 @@
+---
+- name: Install Signal (Debian)
+  block:
+    - name: Install dependencies from archive
+      become: yes
+      apt:
+        update_cache: yes
+        state: present
+        name: "{{ item }}"
+      loop:
+        - ca-certificates
+        - wget
+        - apt-transport-https
+        - software-properties-common
+        - gpg
+
+    - name: Get the Signal apt signing key
+      get_url:
+        url: https://updates.signal.org/desktop/apt/keys.asc
+        dest: "/tmp/signal.asc"
+
+    - name: Trust Signal apt signing key
+      become: yes
+      shell: |
+        cat /tmp/signal.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/signal-desktop.gpg
+
+    - name: Add apt source list
+      become: yes
+      copy:
+        src: files/signal.list
+        dest: /etc/apt/sources.list.d/signal.list
+
+    - name: Install Signal
+      become: yes
+      apt:
+        name: signal-desktop
+        state: present
+        update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Signal (Arch)
+  become: yes
+  pacman:
+    name: signal-desktop
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Archlinux"
