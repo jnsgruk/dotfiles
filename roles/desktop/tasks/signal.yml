@@ -14,15 +14,12 @@
         - software-properties-common
         - gpg
 
-    - name: Get the Signal apt signing key
-      get_url:
-        url: https://updates.signal.org/desktop/apt/keys.asc
-        dest: "/tmp/signal.asc"
-
     - name: Trust Signal apt signing key
       become: yes
-      shell: |
-        cat /tmp/signal.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/signal-desktop.gpg
+      apt_key:
+        url: https://updates.signal.org/desktop/apt/keys.asc
+        keyring: /etc/apt/trusted.gpg.d/signal.gpg
+        state: present
 
     - name: Add apt source list
       become: yes
