@@ -45,7 +45,7 @@ fi
 
 # Tilix VTE Config
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
+        source "/etc/profile.d/$(ls /etc/profile.d | grep -m1 -Eo "vte[-.0-9]*\.sh")"
 fi
 
 export PATH="${HOME}/bin:${PATH}"

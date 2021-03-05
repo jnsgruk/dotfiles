@@ -1,0 +1,18 @@
+---
+- name: Install tilix
+  become: true
+  package:
+    name: tilix
+    state: present
+
+- name: Import Tilix config using dconf
+  become: true
+  shell: |
+    dconf load /com/gexperts/Tilix/ < {{ playbook_dir }}/dots/desktop/tilix.conf
+
+- name: Set default terminal emulator on Ubuntu
+  become: true
+  shell: |
+    update-alternatives --set x-terminal-emulator /usr/bin/tilix.wrapper
+  when:
+    - ansible_distribution == 'Ubuntu'

@@ -10,6 +10,3 @@
 	program = /usr/bin/krgpg
 [pull]
 	rebase = false
-[user]
-	email = jon@sgrs.uk
-	name = Jon Seager

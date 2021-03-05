@@ -2,5 +2,8 @@
 - include_tasks: xdg-user-dirs.yml
   when: desktop_force or (display | length > 0)
 
-- include_tasks: terminator.yml
+# - include_tasks: terminator.yml
+#   when: desktop_force or (display | length > 0)
+
+- include_tasks: tilix.yml
   when: desktop_force or (display | length > 0)
