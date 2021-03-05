@@ -1,0 +1,74 @@
+---
+- name: Install Visual Studio Code (Debian)
+  block:
+    - name: Install dependencies from archive
+      become: yes
+      apt:
+        update_cache: yes
+        state: present
+        name: "{{ item }}"
+      loop:
+        - ca-certificates
+        - wget
+        - apt-transport-https
+        - software-properties-common
+        - gpg
+
+    - name: Trust Microsoft apt signing key
+      become: yes
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        keyring: /etc/apt/trusted.gpg.d/microsoft.gpg
+        state: present
+
+    - name: Add apt source list
+      become: yes
+      copy:
+        src: files/vscode.list
+        dest: /etc/apt/sources.list.d/vscode.list
+
+    - name: Install Visual Studio Code
+      become: yes
+      apt:
+        name: code
+        state: present
+        update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Visual Studio Code (Arch)
+  block:
+    - name: Create aur_builder user
+      become: true
+      user:
+        name: aur_builder
+        group: wheel
+
+    - name: Configure aur_builder user
+      become: true
+      lineinfile:
+        path: /etc/sudoers.d/11-install-aur_builder
+        line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+        create: yes
+        validate: "visudo -cf %s"
+
+    - name: Install VSCode (Arch)
+      become: yes
+      become_user: aur_builder
+      aur:
+        use: yay
+        name: visual-studio-code-bin
+
+    - name: Delete aur_builder user
+      become: true
+      user:
+        name: aur_builder
+        state: absent
+        remove: yes
+
+    - name: Reconfigure sudoers (remove aur_builder)
+      become: true
+      file:
+        path: /etc/sudoers.d/11-install-aur_builder
+        state: absent
+
+  when: ansible_os_family == "Archlinux"

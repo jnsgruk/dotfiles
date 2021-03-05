@@ -7,6 +7,12 @@
 
 - include_tasks: signal.yml
   when: desktop_force or (display | length > 0)
+
+- include_tasks: vscode.yml
+  when: desktop_force or (display | length > 0)
+
+- include_tasks: 1password.yml
+  when: desktop_force or (display | length > 0)
 #
 #
 
