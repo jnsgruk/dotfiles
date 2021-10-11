@@ -7,12 +7,8 @@ owner: root
 group: root
 
 # https://github.com/helm/helm/releases/latest
-helm_version: 3.5.2
-helm_checksum: "sha256:01b317c506f8b6ad60b11b1dc3f093276bb703281cb1ae01132752253ec706a2"
-
-# https://github.com/istio/istio/releases/latest
-istioctl_version: 1.9.0
-istioctl_checksum: "sha256:6392da37788748c0d1628dc3d96e50f8da89766873feb8990c7ff13d1e5a6bf4"
+helm_version: 3.7.0
+helm_checksum: "sha256:096e30f54c3ccdabe30a8093f8e128dba76bb67af697b85db6ed0453a2701bf9"
 
 # https://github.com/cloudflare/cfssl/releases/latest
 cfssl_version: 1.5.0

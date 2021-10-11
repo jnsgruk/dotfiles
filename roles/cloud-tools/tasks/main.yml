@@ -3,13 +3,11 @@
   when: ansible_os_family == "Archlinux"
 
 - include_tasks: kubectl.yml
-- include_tasks: istioctl.yml
 - include_tasks: cfssl.yml
 - include_tasks: helm.yml
 - include_tasks: packer.yml
 - include_tasks: vault.yml
 - include_tasks: terraform.yml
-- include_tasks: terragrunt.yml
 
 - include_tasks: clean-aur.yml
   when: ansible_os_family == "Archlinux"

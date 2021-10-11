@@ -1,38 +1,11 @@
 ---
 - name: Install Spotify (Debian)
   block:
-    - name: Install dependencies from archive
-      become: yes
-      apt:
-        update_cache: yes
-        state: present
-        name: "{{ item }}"
-      loop:
-        - ca-certificates
-        - wget
-        - apt-transport-https
-        - software-properties-common
-        - gpg
-
-    - name: Trust Spotify apt signing key
-      become: yes
-      apt_key:
-        url: https://download.spotify.com/debian/pubkey_0D811D58.gpg
-        keyring: /etc/apt/trusted.gpg.d/spotify.gpg
-        state: present
-
-    - name: Add apt source list
-      become: yes
-      copy:
-        src: files/spotify.list
-        dest: /etc/apt/sources.list.d/spotify.list
-
     - name: Install Spotify
       become: yes
-      apt:
-        name: spotify-client
-        state: present
-        update_cache: yes
+      snap:
+        name: spotify
+
   when: ansible_os_family == "Debian"
 
 - name: Install  Spotify (Arch)

@@ -3,8 +3,8 @@
   block:
     - name: Install Discord
       become: yes
-      apt:
-        deb: "https://discord.com/api/download?platform=linux&format=deb"
+      snap:
+        name: discord
   when: ansible_os_family == "Debian"
 
 - name: Install Signal (Arch)
