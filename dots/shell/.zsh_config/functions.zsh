@@ -11,6 +11,13 @@ function opcopy(){
  opget $1 | xargs echo -n | xclip -selection c
 }
 
+function yubissh() {
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs | grep ssh | cut -d':' -f2)"
+}
+function sysssh() {
+  export SSH_AUTH_SOCK="/run/user/1000/keyring/ssh"
+}
+
 function reset_microk8s() {
   # Unregister the 'micro' controller from Juju
   juju unregister micro -y  
