@@ -4,7 +4,7 @@
   block:
     - name: Download exa
       get_url:
-        url: "https://github.com/ogham/exa/releases/download/v{{ exa_version }}/exa-linux-x86_64-{{ exa_version }}.zip"
+        url: "https://github.com/ogham/exa/releases/download/v{{ exa_version }}/exa-linux-x86_64-v{{ exa_version }}.zip"
         checksum: "{{ exa_checksum }}"
         dest: "{{ tmp_dir }}/exa.zip"
         mode: "0600"
@@ -18,7 +18,7 @@
     - name: Install exa
       become: yes
       copy:
-        src: "{{ tmp_dir }}/exa-linux-x86_64"
+        src: "{{ tmp_dir }}/bin/exa"
         dest: "{{ install_dir }}/exa"
         mode: "0755"
         owner: "root"

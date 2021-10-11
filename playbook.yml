@@ -16,35 +16,15 @@
         name: desktop
       when: install_desktop
 
-    - name: Setup pyenv
-      include_role:
-        name: pyenv
-      when: install_pyenv
-
     - name: Setup cloud tools
       include_role:
         name: cloud-tools
       when: install_cloud_tools
 
-    - name: Setup Azure CLI
-      include_role:
-        name: azcli
-      when: install_azcli
-
     - name: Setup Docker
       include_role:
         name: docker
       when: install_docker
-
-    - name: Setup goenv
-      include_role:
-        name: goenv
-      when: install_goenv
-
-    - name: Setup Krypt
-      include_role:
-        name: krypt
-      when: install_krypt
 
     - name: Setup libvirt
       include_role:

@@ -31,12 +31,8 @@ if [[ ! -f "${SCRIPT_DIR}/overrides.yml" ]]; then
 install_shell: true
 install_desktop: true
 install_fonts: true
-install_pyenv: true
 install_cloud_tools: true
-install_azcli: true
 install_docker: true
-install_goenv: true
-install_krypt: true
 install_libvirt: true
 EOF
   # Prompt the user if they would like to edit the default overrides (which installs everything)
