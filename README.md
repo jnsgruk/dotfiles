@@ -39,12 +39,8 @@ The `override.yml` file is created during setup, and used to toggle which roles 
 install_shell: true
 install_desktop: true
 install_fonts: true
-install_pyenv: false
 install_cloud_tools: true
-install_azcli: false
 install_docker: true
-install_goenv: true
-install_krypt: false
 ```
 
 ### What do the roles do?
