@@ -23,7 +23,7 @@ function reset_microk8s() {
   juju unregister micro -y  
   # Purge and reinstall microk8s
   sudo bash -c "snap remove --purge microk8s && \
-  snap install --classic microk8s && \
+  snap install --classic microk8s --channel=1.21/stable && \
   microk8s status --wait-ready && \
   microk8s enable storage dns ingress"
   # Bootstrap the new cluster
