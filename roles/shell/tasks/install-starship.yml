@@ -1,0 +1,34 @@
+---
+- name: Install Starship (Debian/Ubuntu/RHEL/Fedora)
+  become: true
+  block:
+    - name: Download starship
+      get_url:
+        url: "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
+        dest: "{{ tmp_dir }}/starship.tar.gz"
+        mode: "0600"
+
+    - name: Extract starship
+      unarchive:
+        src: "{{ tmp_dir }}/starship.tar.gz"
+        dest: "{{ tmp_dir }}"
+        remote_src: yes
+
+    - name: Install starship
+      become: yes
+      copy:
+        src: "{{ tmp_dir }}/starship-x86_64-unknown-linux-gnu.tar.gz"
+        dest: "{{ install_dir }}/starship"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+        remote_src: yes
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+
+- name: Install Starship (Arch)
+  become: yes
+  pacman:
+    name: starship
+    state: present
+    update_cache: true
+  when: ansible_os_family == 'Archlinux'

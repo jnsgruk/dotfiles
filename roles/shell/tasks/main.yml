@@ -13,10 +13,11 @@
     - jq
     - unzip
 
-- include_tasks: oh-my-zsh.yml
-- include_tasks: zsh-plugins.yml
+# - include_tasks: oh-my-zsh.yml
+# - include_tasks: zsh-plugins.yml
 - include_tasks: vim.yml
 - include_tasks: configs.yml
+- include_tasks: xdg-user-dirs.yml
 
 - include_tasks: install-exa.yml
   when: install_exa

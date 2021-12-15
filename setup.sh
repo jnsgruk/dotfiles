@@ -19,21 +19,13 @@ if ! command -v ansible >/dev/null; then
   fi
 fi
 
-# Fetch Ansible Galaxy dependencies
-echo "[+] Downloading Ansible role dependencies"
-ansible-galaxy install -r "${SCRIPT_DIR}/requirements.yml" 2>&1 | tee -a "${SCRIPT_DIR}/setup.log" > /dev/null
-
 # Check if there is already an overrides file present
 if [[ ! -f "${SCRIPT_DIR}/overrides.yml" ]]; then
   echo "[+] Creating template overrides file"
   cat <<-EOF > "${SCRIPT_DIR}/overrides.yml"
 ---
 install_shell: true
-install_desktop: true
 install_fonts: true
-install_cloud_tools: true
-install_docker: true
-install_libvirt: true
 EOF
   # Prompt the user if they would like to edit the default overrides (which installs everything)
   echo

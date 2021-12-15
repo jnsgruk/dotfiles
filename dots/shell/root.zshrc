@@ -5,9 +5,6 @@ export SAVEHIST=10000
 export EDITOR=vim
 export HH_CONFIG=hicolor
 export LSCOLORS=Gxfxcxdxbxegedabagacad
-# ZSH Vars
-export ZSH=$HOME/.oh-my-zsh
-export ZSH_THEME="ys"
 
 # ZSH Options 
 setopt appendhistory notify #consistent history
@@ -28,9 +25,6 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 autoload -U promptinit
 promptinit
 
-plugins=(git sudo systemd)
-source $ZSH/oh-my-zsh.sh
-
 # Aliases
 alias ip='ip --color'
 alias ipb='ip --color --brief'
@@ -41,3 +35,8 @@ alias gst='git status -sb'
 # Wireguard Aliases
 alias wgu='sudo wg-quick up'
 alias wgd='sudo wg-quick down'
+
+export STARSHIP_CONFIG="$HOME/.config/starship-plain.toml"
+# source $HOME/.zsh_config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source $HOME/.zsh_config/zsh-autosuggestions/zsh-autosuggestions.zsh
+eval "$(starship init zsh)"

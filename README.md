@@ -10,7 +10,6 @@ This repository contains both my [configs/dotfiles](./dots) and some associated 
 ### What does this do?
 
 - Download and install Ansible
-- Fetch any roles required from Ansible Galaxy
 - Check for an `overrides.yml` file, and create one if it doesn't exist
 - Offer the opportunity to edit the `overrides.yml` before contining
 - Provision the host with Ansible according to the preferences in the `overrides.yml`
@@ -35,12 +34,8 @@ The `override.yml` file is created during setup, and used to toggle which roles 
 
 ```yaml
 ---
----
 install_shell: true
-install_desktop: true
 install_fonts: true
-install_cloud_tools: true
-install_docker: true
 ```
 
 ### What do the roles do?

@@ -10,23 +10,3 @@
       include_role:
         name: fonts
       when: install_fonts
-
-    - name: Setup desktop
-      include_role:
-        name: desktop
-      when: install_desktop
-
-    - name: Setup cloud tools
-      include_role:
-        name: cloud-tools
-      when: install_cloud_tools
-
-    - name: Setup Docker
-      include_role:
-        name: docker
-      when: install_docker
-
-    - name: Setup libvirt
-      include_role:
-        name: libvirt
-      when: install_libvirt
