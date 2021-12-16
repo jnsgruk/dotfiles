@@ -4,6 +4,9 @@ setopt appendhistory notify #consistent history
 unsetopt autocd #don't change directory automatically
 
 bindkey -e
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
 bindkey '^[[1;9C' forward-word # Ctrl+RightArrow
 bindkey '^[[1;9D' backward-word # Ctrl+LeftArrow
 bindkey "\033[1~" beginning-of-line
