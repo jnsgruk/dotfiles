@@ -17,7 +17,7 @@
     - name: Install starship
       become: yes
       copy:
-        src: "{{ tmp_dir }}/starship-x86_64-unknown-linux-gnu.tar.gz"
+        src: "{{ tmp_dir }}/starship"
         dest: "{{ install_dir }}/starship"
         mode: "0755"
         owner: "root"
