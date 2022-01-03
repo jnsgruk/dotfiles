@@ -69,3 +69,6 @@ symbol = " "
 [status]
 disabled = false
 
+[username]
+format = "[$user]($style)@"
+
