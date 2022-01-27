@@ -17,5 +17,31 @@ if [[ -d /var/lib/snapd ]]; then
   export PATH="/snap/bin:${PATH}"
 fi
 
-export PATH="${HOME}/bin:${HOME}/nextcloud/scripts:${PATH}"
-export PATH="$PATH:/home/jon/.local/bin"
+export PATH="${HOME}/bin:${PATH}"
+export PATH="${HOME}/nextcloud/scripts:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
+
+# pyenv config
+if [[ -d "${HOME}/.pyenv" ]]; then
+  export PYENV_ROOT="${HOME}/.pyenv"
+  export PYENV_BIN="${PYENV_ROOT}/shims"
+
+  if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+  fi
+
+  export PATH="${PYENV_BIN}:$PATH"
+fi
+
+# rbenv config
+if [[ -d "${HOME}/.rbenv" ]]; then
+  export RBENV_ROOT="${HOME}/.rbenv"
+  export RBENV_BIN="${RBENV_ROOT}/shims"
+
+  if command -v rbenv 1>/dev/null 2>&1; then
+    eval "$(rbenv init -)"
+  fi
+
+  export PATH="${RBENV_BIN}:$PATH"
+fi
+
