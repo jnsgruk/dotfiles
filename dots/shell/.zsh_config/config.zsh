@@ -1,7 +1,7 @@
 # ZSH Options 
 setopt promptsubst
-setopt appendhistory notify #consistent history
-unsetopt autocd #don't change directory automatically
+unsetopt autocd # don't change directory automatically
+setopt incAppendHistoryTime
 
 bindkey -e
 bindkey  "^[[H"   beginning-of-line
@@ -22,6 +22,7 @@ zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' matcher-list 'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 
 autoload -U promptinit
 promptinit
