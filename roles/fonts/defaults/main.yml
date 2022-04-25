@@ -1,5 +1,0 @@
----
-display: "{{ lookup('env','DISPLAY') }}{{ lookup('env', 'WAYLAND_DISPLAY') }}"
-fonts_force: no # Install even if there is no display detected
-install_dir: /usr/share/fonts/custom
-tmp_dir: /tmp

@@ -1,0 +1,16 @@
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+	default = matching
+[color]
+	ui = 1
+[core]
+	excludesfile = ~/.gitignore
+[pull]
+	rebase = false
+[user]
+	email = jon@sgrs.uk
+	name = Jon Seager
+	signingkey = 83B266DCF3E3F2B41264A9F5F4A9184451BD9A74
+[commit]
+	gpgsign = true

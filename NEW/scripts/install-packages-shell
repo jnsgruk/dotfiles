@@ -1,0 +1,87 @@
+#!/bin/bash
+set -euo pipefail
+# Output green message prefixed with [+]
+_info() { echo -e "\e[92m[+] ${1:-}\e[0m"; }
+
+OS="$(grep -Po '^ID=\K.+$' /etc/os-release)"
+GITHUB="https://github.com"
+
+_install_packages_ubuntu() {
+    local DEBIAN_FRONTEND="noninteractive"
+    local EXA_VERSION="0.10.1"
+    local BAT_VERSION="0.20.0"
+
+    _info "Updating package cache"
+    sudo apt-get update
+
+    _info "Installing packages from the archives"
+    sudo apt-get install -y \
+        unzip \
+        git \
+        htop \
+        curl \
+        wget \
+        tmux \
+        jq \
+        zsh \
+        xdg-user-dirs \
+        vim
+
+    # install exa
+    _info "Installing exa (v$EXA_VERSION) from Github"
+    EXA_ARCHIVE="v${EXA_VERSION}/exa-linux-x86_64-v${EXA_VERSION}.zip"
+    EXA_PATH="/usr/local/bin/exa"
+    wget -qO /tmp/exa.zip "$GITHUB/ogham/exa/releases/download/${EXA_ARCHIVE}"
+    unzip -qod /tmp /tmp/exa.zip
+    sudo mv /tmp/bin/exa "$EXA_PATH"
+    sudo chmod 0755 "$EXA_PATH"
+    sudo chown root:root "$EXA_PATH"
+
+    # install bat
+    _info "Installing bat (v$BAT_VERSION) from Github"
+    BAT_ARCHIVE="v${BAT_VERSION}/bat-v${BAT_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+    BAT_PATH="/usr/local/bin/bat"
+    wget -qO /tmp/bat.tar.gz "$GITHUB/sharkdp/bat/releases/download/${BAT_ARCHIVE}"
+    tar -C /tmp -xf /tmp/bat.tar.gz
+    sudo mv "/tmp/bat-v${BAT_VERSION}-x86_64-unknown-linux-gnu/bat" "$BAT_PATH"
+    sudo chmod 0755 "$BAT_PATH"
+    sudo chown root:root "$BAT_PATH"
+
+    # install starship
+    _info "Installing starship from Github"
+    STARSHIP_ARCHIVE="starship-x86_64-unknown-linux-gnu.tar.gz"
+    STARSHIP_PATH="/usr/local/bin/starship"
+    wget -qO /tmp/starship.tar.gz "$GITHUB/starship/starship/releases/latest/download/${STARSHIP_ARCHIVE}"
+    tar -C /tmp -xf /tmp/starship.tar.gz
+    sudo mv /tmp/starship "$STARSHIP_PATH"
+    sudo chmod 0755 "$STARSHIP_PATH"
+    sudo chown root:root "$STARSHIP_PATH"
+}
+
+_install_packages_arch() {
+    _info "Installing packages"
+    yay -S \
+        unzip \
+        git \
+        htop \
+        curl \
+        wget \
+        tmux \
+        jq \
+        zsh \
+        xdg-user-dirs \
+        bat \
+        exa \
+        starship \
+        vim
+}
+    
+_main() {
+    if [[ $OS == "ubuntu" ]]; then
+        _install_packages_ubuntu
+    elif [[ $OS == "arch" ]]; then
+        _install_packages_arch
+    fi
+}
+
+_main

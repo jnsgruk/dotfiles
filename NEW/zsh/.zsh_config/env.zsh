@@ -11,6 +11,7 @@ export GDK_CORE_DEVICE_EVENTS=1
 
 # Go config
 export GOPATH="${HOME}/go"
+export GOBIN="${GOPATH}/bin"
 
 # snapd config if installed
 if [[ -d /var/lib/snapd ]]; then
@@ -18,6 +19,8 @@ if [[ -d /var/lib/snapd ]]; then
 fi
 
 export PATH="${HOME}/bin:${PATH}"
+export PATH="${GOBIN}:${PATH}"
+export PATH="${HOME}/.config/sway/scripts:${PATH}"
 export PATH="${HOME}/data/scripts:${PATH}:${HOME}/scripts:${PATH}"
 export PATH="${HOME}/.local/bin:${PATH}"
 export PATH="${HOME}/snap/multipass/common/bin:${PATH}"

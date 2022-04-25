@@ -1,0 +1,218 @@
+#!/bin/bash
+set -euo pipefail
+# Output green message prefixed with [+]
+_info() { echo -e "\e[92m[+] ${1:-}\e[0m"; }
+
+GITHUB="https://github.com"
+DEBIAN_FRONTEND="noninteractive"
+OS="$(grep -Po '^ID=\K.+$' /etc/os-release)"
+
+_build_install_with_ninja() {
+    meson build
+    ninja -C build
+    sudo ninja -C build install
+}
+
+_build_install_waybar() {
+    _info "Installing waybar"
+    V_WAYBAR="0.9.12"
+    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build \
+                            wayland-protocols scdoc clang-tidy gobject-introspection \
+                            libdbusmenu-gtk3-dev libevdev-dev libfmt-dev libgirepository1.0-dev \
+                            libgtk-3-dev libgtkmm-3.0-dev libinput-dev libjsoncpp-dev \
+                            libmpdclient-dev libnl-3-dev libnl-genl-3-dev libpulse-dev \
+                            libsigc++-2.0-dev libspdlog-dev libwayland-dev libxkbregistry-dev
+    git clone -b "$V_WAYBAR" "$GITHUB/Alexays/Waybar" ~/build/waybar
+    cd ~/build/waybar
+    _build_install_with_ninja
+}
+
+_build_install_swaylock_effects() {
+    _info "Installing swaylock-effects"
+    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build \
+                            wayland-protocols scdoc libgdk-pixbuf2.0-dev libcairo-dev \
+                            libxkbcommon-dev libwayland-dev libpam-dev bash-completion
+    git clone "$GITHUB/mortie/swaylock-effects" ~/build/swaylock-effects
+    cd ~/build/swaylock-effects
+    # TODO: The latest tag didn't build at time of writing, replace this sometime
+    git checkout a8fc557b86e70f2f7a30ca9ff9b3124f89e7f204
+    _build_install_with_ninja
+}
+
+_build_install_wlsunset() {
+    _info "Installing wlsunset"
+    V_WLSUNSET="0.2.0"
+    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build libwayland-dev \
+                            wayland-protocols scdoc
+    git clone -b "$V_WLSUNSET" "https://git.sr.ht/~kennylevinsen/wlsunset" ~/build/wlsunset
+    cd ~/build/wlsunset
+    _build_install_with_ninja
+}
+
+_build_install_xdg_desktop_portal_wlr() {
+    _info "Installing xdg-desktop-portal-wlr"
+    V_XDGDP="v0.2.0"
+    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build \
+                            wayland-protocols libwayland-dev xdg-desktop-portal libpipewire-0.3-dev \
+                            libinih-dev libsystemd-dev scdoc
+    git clone -b "$V_XDGDP" "$GITHUB/emersion/xdg-desktop-portal-wlr" ~/build/xdg-desktop-portal-wlr
+    cd ~/build/xdg-desktop-portal-wlr
+    _build_install_with_ninja
+}
+
+_build_install_swappy() { 
+    _info "Installing swappy"
+    V_SWAPPY="v1.4.0"
+    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build libcairo-dev \
+                            wayland-protocols libpango1.0-dev libgtk-3-dev scdoc
+    git clone -b "$V_SWAPPY" "$GITHUB/jtheoof/swappy" ~/build/swappy
+    cd ~/build/swappy
+    _build_install_with_ninja
+}
+
+_build_install_alacritty() {
+    _info "Installing alacritty"
+    V_ALACRITTY="v0.10.1"
+    sudo apt-get install -y git libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
+                                libxkbcommon-dev python3 cargo desktop-file-utils
+    git clone -b "$V_ALACRITTY" "$GITHUB/alacritty/alacritty.git" ~/build/alacritty
+    cd ~/build/alacritty
+    cargo build --release
+    
+    # Install the terminfo profile
+    sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+    # Install alacritty and desktop file
+    sudo cp target/release/alacritty /usr/local/bin
+    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+    sudo desktop-file-install extra/linux/Alacritty.desktop
+    sudo update-desktop-database
+    # Install the man pages
+    sudo mkdir -p /usr/local/share/man/man1
+    gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+    gzip -c extra/alacritty-msg.man | sudo tee /usr/local/share/man/man1/alacritty-msg.1.gz > /dev/null
+}
+
+_build_install_avizo() {
+    _info "Installing avizo"
+    V_AVIZO="1.2"
+    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build valac cmake \
+                            libgtk-3-dev libgirepository1.0-dev libgtk-layer-shell-dev
+    git clone -b "$V_AVIZO" "$GITHUB/misterdanb/avizo.git" ~/build/avizo
+    cd ~/build/avizo
+    _build_install_with_ninja
+}
+
+_build_install_pamixer() {
+    _info "Installing pamixer"
+    V_PAMIXER="1.5"
+    sudo apt-get install -y git build-essential libpulse-dev libcxxopts-dev libboost-program-options-dev
+    git clone -b $V_PAMIXER "$GITHUB/cdemoulins/pamixer.git" ~/build/pamixer
+    cd ~/build/pamixer
+    make
+    sudo make install
+}
+
+_install_packages_ubuntu() {
+    _info "Updating package cache"
+    sudo apt-get update
+
+    _info "Installing packages from the archives"
+    sudo apt-get install -y \
+	    sway \
+        golang \
+        mako-notifier \
+        swayidle \
+        playerctl \
+        wl-clipboard \
+        brightnessctl \
+        wmctrl \
+        xdg-desktop-portal \
+        wf-recorder \
+        grim \
+        slurp \
+        arc-theme \
+        papirus-icon-theme \
+        policykit-1-gnome \
+        nautilus \
+        gnome-sushi \
+        eog \
+        evince \
+        pavucontrol \
+		v4l2loopback-dkms \
+		v4l2loopback-utils \
+		apparmor-utils \
+        gnome-disk-utility
+
+    # Needed for brightnessctl
+    _info "Adding user '$USER' to 'input' and 'video' groups"
+    sudo usermod -aG input "$USER"
+    sudo usermod -aG video "$USER"
+
+    _info "Installing clipman"
+    go install github.com/yory8/clipman@latest
+
+    _info "Installing ulauncher"
+    sudo add-apt-repository -yr ppa:agornostal/ulauncher
+    sudo add-apt-repository -n -y ppa:agornostal/ulauncher
+    # TODO: Replace this when there is a PPA for Jammy
+    sudo sed -i 's/jammy/focal/g' /etc/apt/sources.list.d/agornostal-ubuntu-ulauncher-jammy.list
+    sudo apt-get update
+    sudo apt-get install -y ulauncher
+
+    # The following will only work on Ubuntu Jammy and onwards due to versions
+    # of build tools and libraries.
+    _build_install_waybar
+    _build_install_swaylock_effects
+    _build_install_wlsunset
+    _build_install_xdg_desktop_portal_wlr
+    _build_install_swappy
+    _build_install_alacritty
+    _build_install_avizo
+    _build_install_pamixer
+
+	_info "Disable apparmor rule for mako"
+	sudo aa-disable /etc/apparmor.d/fr.emersion.Mako
+}
+
+_install_packages_arch() {
+    _info "Installing packages"
+    yay -S \
+	    sway \
+        clipman \
+        mako \
+        ulauncher \
+        swayidle \
+        waybar \
+        swaylock-effects \
+        playerctl \
+        wl-clipboard \
+        brightnessctl \
+        wmctrl \
+        xdg-desktop-portal-wlr \
+        xdg-desktop-portal \
+        wf-recorder \
+        wlsunset \
+        grim \
+        slurp \
+        swappy \
+        alacritty \
+        avizo \
+        pamixer \
+        polkit-gnome \
+        arc-gtk-theme \
+        papirus-icon-theme \
+        nautilus \
+        sushi \
+        eog \
+        evince \
+        gnome-disk-utility \
+		v4l2loopback-utils \
+		v4l2loopback-dkms \
+        pavucontrol
+}
+
+if [[ "$OS" == "ubuntu" ]]; then
+    _install_packages_ubuntu
+elif [[ "$OS" == "arch" ]]; then
+    _install_packages_arch
+fi

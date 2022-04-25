@@ -1,0 +1,27 @@
+#!/bin/bash
+set -euo pipefail
+# Output green message prefixed with [+]
+_info() { echo -e "\e[92m[+] ${1:-}\e[0m"; }
+
+GITHUB="https://github.com"
+
+# Fonts directory
+_info "Creating fonts directory at /usr/share/fonts/custom"
+sudo mkdir -p /usr/share/fonts/custom
+
+# install San Francisco Pro fonts
+_info "Installing San Francisco Pro fonts"
+wget -qO /tmp/sfpro.zip "$GITHUB/sahibjotsaggu/San-Francisco-Pro-Fonts/archive/master.zip"
+unzip -qod /tmp /tmp/sfpro.zip
+sudo mv /tmp/San-Francisco-Pro-Fonts-master/*.otf /usr/share/fonts/custom
+sudo mv /tmp/San-Francisco-Pro-Fonts-master/*.ttf /usr/share/fonts/custom
+
+# install Meslo Nerd Font
+_info "Installing Meslo Nerd font"
+wget -qO /tmp/meslo.ttf "$GITHUB/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/M-DZ/Regular/complete/Meslo%20LG%20M%20DZ%20Regular%20Nerd%20Font%20Complete%20Mono.ttf"
+sudo mv /tmp/meslo.ttf /usr/share/fonts/custom/MesloLGMDZNerdFontMono.ttf
+
+# install patched SFPro font with ligatures and symbols
+_info "Installing patched San Francisco font"
+wget -qO /tmp/sfliga.otf "$GITHUB/shaunsingh/SFMono-Nerd-Font-Ligaturized/raw/main/LigaSFMonoNerdFont-Regular.otf"
+sudo mv /tmp/sfliga.otf /usr/share/fonts/custom/LigaSFMonoNerdFont-Regular.otf

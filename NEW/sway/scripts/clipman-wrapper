@@ -1,0 +1,5 @@
+instance=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .window_properties.instance')
+if [[ $instance != "1password" ]]; then
+  # --no-persist so that we preserve rich text:
+  clipman store --no-persist
+fi

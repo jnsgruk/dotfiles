@@ -1,4 +1,3 @@
-overrides.yml
 *.log
 dist/
 .python-version

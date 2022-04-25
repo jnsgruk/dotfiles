@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ShareSreen</title>
+    <style>
+      body { padding: 0; margin: 0; background-color: rgb(36, 36, 36);}
+      video { height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; }
+    </style>
+  </head>
+  <body>
+    <video autoplay id="video" playsinline></video>
+    <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
+    <script>
+      // Grab some elements from the DOM
+      const videoElement = document.querySelector("video")
+
+      const start = async () => {
+        // Get a list of all available mediaDevices
+        const devices = await navigator.mediaDevices.enumerateDevices()
+        // console.log(devices)
+        const constraints = { 
+          video: {
+            deviceId: devices.find(d => d.label === "ShareScreen").deviceId
+          }
+        }
+        // Set the video element to use the stream from our selected camera
+        videoElement.srcObject = await navigator.mediaDevices.getUserMedia(constraints)
+      }
+      start()
+    </script>
+  </body>
+</html> 
+  </body>
+</html>

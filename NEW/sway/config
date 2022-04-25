@@ -1,0 +1,16 @@
+# Alt is Mod1
+set $mod Mod4 
+set $term alacritty
+set $menu ulauncher-toggle >/dev/null 2>&1 | xargs swaymsg exec --
+
+# Bar config
+bar swaybar_command waybar
+
+# Setup for systemd/dbus for Gnome apps
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+        dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# include /etc/sway/config.d/*
+# include /etc/sway/config-vars.d/*
+include ./sway.d/*
