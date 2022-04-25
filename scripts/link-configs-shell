@@ -19,7 +19,7 @@ mkdir -p ~/.config
 # zsh config
 _info "Linking zsh configs"
 ln -sf $REPO/zsh/.zshrc ~/.zshrc
-[[ ! -L ~/.zsh_config ]] && ln -sf $REPO/zsh/.zsh_config/ ~/.zsh_config
+[[ ! -L ~/.zsh_config ]] && ln -sf $REPO/zsh/.zsh_config ~/.zsh_config
 
 if [[ ! -d ~/.zsh_config/zsh-autosuggestions ]]; then
     _info "Cloning zsh-autosuggestions from Github"
