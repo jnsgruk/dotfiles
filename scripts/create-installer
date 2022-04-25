@@ -1,0 +1,40 @@
+#!/bin/bash
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+TOP_DIR=$( cd "$( dirname "${SCRIPT_DIR}" )" && pwd )
+DIST_DIR="${TOP_DIR}/dist"
+
+rm -rf "${DIST_DIR}"
+mkdir -p "${DIST_DIR}/dotfiles/scripts"
+
+cp -R "${TOP_DIR}/git" "${DIST_DIR}/dotfiles/git"
+cp -R "${TOP_DIR}/htop" "${DIST_DIR}/dotfiles/htop"
+cp -R "${TOP_DIR}/starship" "${DIST_DIR}/dotfiles/starship"
+cp -R "${TOP_DIR}/tmux" "${DIST_DIR}/dotfiles/tmux"
+cp -R "${TOP_DIR}/vim" "${DIST_DIR}/dotfiles/vim"
+cp -R "${TOP_DIR}/zsh" "${DIST_DIR}/dotfiles/zsh"
+
+cp -R "${TOP_DIR}/scripts/install-packages-shell" "${DIST_DIR}/dotfiles/scripts/install-packages-shell"
+cp -R "${TOP_DIR}/scripts/install-fonts" "${DIST_DIR}/dotfiles/scripts/install-fonts"
+cp -R "${TOP_DIR}/scripts/link-configs-shell" "${DIST_DIR}/dotfiles/scripts/link-configs-shell"
+
+cd "${DIST_DIR}" || exit
+tar -czf "${DIST_DIR}/dotfiles.tar.gz" dotfiles/
+rm -rf "${DIST_DIR}/dotfiles"
+
+cat <<-EOF > "${DIST_DIR}/temp.sh"
+#!/bin/bash
+PAYLOAD_LINE=\$(awk '/^__PAYLOAD_BELOW__/ {print NR + 1; exit 0; }' \${0})
+tail -n+\${PAYLOAD_LINE} \${0} | tar xz
+
+bash ./dotfiles/scripts/install-packages-shell
+bash ./dotfiles/scripts/install-fonts
+bash ./dotfiles/scripts/link-configs-shell
+
+exit 0
+__PAYLOAD_BELOW__
+EOF
+
+cat "${DIST_DIR}/temp.sh" "${DIST_DIR}/dotfiles.tar.gz" > "${DIST_DIR}/installer.sh"
+rm -rf "${DIST_DIR}/temp.sh" "${DIST_DIR}/dotfiles.tar.gz"
+chmod +x installer.sh
+cp "${SCRIPT_DIR}/net-provision" "${DIST_DIR}/net-provision" 

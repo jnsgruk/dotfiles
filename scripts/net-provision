@@ -18,12 +18,14 @@ if ! command -v git >/dev/null; then
   fi
 fi
 
-if [[ -d "${HOME}/dotfiles" ]]; then
-  echo "[!] Directory ${HOME}/dotfiles exists. Attempting git pull..."
-  git -C "${HOME}/dotfiles" pull -q origin master
+if [[ -d "${HOME}/code/dotfiles" ]]; then
+  echo "[!] Directory ${HOME}/code/dotfiles exists. Attempting git pull..."
+  git -C "${HOME}/code/dotfiles" pull -q origin master
 else
   echo "[+] Cloning https://github.com/jnsgruk/dotfiles"
-  git clone -q https://github.com/jnsgruk/dotfiles "${HOME}/dotfiles"
+  git clone -q https://github.com/jnsgruk/dotfiles "${HOME}/code/dotfiles"
 fi
 
-"${HOME}/dotfiles/setup.sh"
+bash "${HOME}/code/dotfiles/scripts/install-packages-shell"
+bash "${HOME}/code/dotfiles/scripts/install-fonts"
+bash "${HOME}/code/dotfiles/scripts/link-configs-shell"
