@@ -170,8 +170,8 @@ _install_packages_ubuntu() {
     _build_install_avizo
     _build_install_pamixer
 
-	_info "Disable apparmor rule for mako"
-	sudo aa-disable /etc/apparmor.d/fr.emersion.Mako
+	# _info "Disable apparmor rule for mako"
+	# sudo aa-disable /etc/apparmor.d/fr.emersion.Mako
 }
 
 _install_packages_arch() {
