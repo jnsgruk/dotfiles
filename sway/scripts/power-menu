@@ -4,8 +4,8 @@ swaynag -t warning \
     -b 'Logout' 'swaymsg exit' \
     -b 'Restart' 'shutdown -r now' \
     -b 'Shutdown'  'shutdown -h now' \
-    --background='#1f2430' \
-    --button-background='#1f2430' \
+    --background='#22222266' \
+    --button-background='#22222266' \
     --button-text='#FFD580' \
     --button-border-size=0 \
     --border-bottom='#FFD580' \
