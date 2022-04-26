@@ -2,7 +2,6 @@
     "exclusive": true,
     "modules-left": [
         "sway/workspaces",
-        "sway/mode"
     ],
     "modules-center": [
         "clock",
@@ -12,19 +11,17 @@
         "tray",
         "custom/scratchpad-indicator",
         "pulseaudio",
+        "pulseaudio#source",
         "network",
         "battery",
         "custom/power"
     ],
-    "sway/mode": {
-        "format": "<span style=\"italic\"> {} </span>"
-    },
     "network": {
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ifname} ",
         "format-disconnected": "",
         "max-length": 50,
-        "on-click": "foot 'nmtui'"
+        "on-click": "alacritty -e nmtui"
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -38,7 +35,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": "{:%Y-%m-%d %H:%M}",
+        "format": "{:%Y-%m-%d %H:%M}"
     },
     "battery": {
         "states": {
@@ -60,13 +57,10 @@
         ]
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} ",
+        "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": "0% {icon} ",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format-muted": "",        
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -80,19 +74,18 @@
                 ""
             ]
         },
-        "on-click": "pavucontrol"
+        "on-click": "volumectl toggle-mute",
+        "on-click-right": "pavucontrol"
+    },
+    "pulseaudio#source": {
+        "format": "{format_source}",
+        "format-source": "",
+        "format-source-muted": "",
+        "on-click": "volumectl -m toggle-mute",
+        "on-click-right": "pavucontrol"
     },
     "custom/power": {
         "format": "",
-        "on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#005566 --button-background=#009999 --button-border=#002b33 --border-bottom=#002b33"
+        "on-click": "power-menu"
     },
-    "custom/scratchpad-indicator": {
-        "format-text": "{}",
-        "return-type": "json",
-        "interval": 3,
-        "exec": "~/.local/bin/scratchpad-indicator 2> /dev/null",
-        "exec-if": "exit 0",
-        "on-click": "swaymsg 'scratchpad show'",
-        "on-click-right": "swaymsg 'move scratchpad'"
-    }
 }
