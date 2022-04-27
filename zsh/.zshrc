@@ -1,5 +1,7 @@
 if [[ "${TERM}" == "linux" ]]; then
   export STARSHIP_CONFIG="$HOME/.config/starship-plain.toml"
+else
+  export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 fi
 
 # Custom zsh config
