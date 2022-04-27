@@ -5,18 +5,20 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$fill\
+$python\
+$golang\
+$status\
 $line_break\
 $character"""
-
-right_format = """$python\
-$golang\
-$status"""
-
 
 [character]
 success_symbol = "[❯](purple)"
 error_symbol = "[❯](red)"
 vicmd_symbol = "[❮](green)"
+
+[fill]
+symbol = " "
 
 [directory]
 read_only = " "
