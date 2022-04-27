@@ -1,14 +1,15 @@
-font=MesloLGMDZ Nerd Font
-#background-color=#xxxxxx
-#progress-color=#xxxxx
-#border-color=#xxxxx
+font="Liga SFMono Nerd Font"
+background-color=#24293660
+progress-color=#FFD580
+border-color=#FFD580
 icons=1
 padding=20
 width=450
-border-size=3
-border-radius=8
-icon-path=/usr/share/icons/Yaru
+border-size=1
+border-radius=0
+icon-path=/usr/share/icons/Papirus-Dark
 actions=1
-default-timeout=30000
+default-timeout=20000
 layer=overlay
+anchor=top-right
 
