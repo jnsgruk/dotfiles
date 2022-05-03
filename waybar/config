@@ -4,14 +4,14 @@
         "sway/workspaces"
     ],
     "modules-center": [
-        "clock"
+        "clock",
+        "idle_inhibitor"
     ],
     "modules-right": [
         "tray",
         "custom/scratchpad-indicator",
         "pulseaudio",
         "pulseaudio#source",
-        "idle_inhibitor",
         "custom/power"
     ],
 	"sway/workspaces": {
@@ -66,14 +66,16 @@
             ]
         },
         "on-click": "volumectl toggle-mute",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "pavucontrol",
+        "tooltip-format": "{volume}% / {desc}"
     },
     "pulseaudio#source": {
         "format": "{format_source}",
         "format-source": "",
         "format-source-muted": "",
         "on-click": "volumectl -m toggle-mute",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "pavucontrol",
+        "tooltip-format": "{source_volume}% / {desc}"
     },
     "custom/power": {
         "format": "",

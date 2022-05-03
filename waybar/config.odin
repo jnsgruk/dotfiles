@@ -4,16 +4,16 @@
         "sway/workspaces"
     ],
     "modules-center": [
-        "clock"
+        "clock",
+        "idle_inhibitor"
     ],
     "modules-right": [
         "tray",
         "custom/scratchpad-indicator",
         "network",
+        "battery",
         "pulseaudio",
         "pulseaudio#source",
-        "battery",
-        "idle_inhibitor",
         "custom/power"
     ],
     "sway/workspaces": {
@@ -55,10 +55,10 @@
             "warning": 20,
             "critical": 10
         },
-        "format": "{icon}",
-        "format-charging": "",
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
         "format-plugged": "",
-        "tooltip-format": "{capacity}% / {time}",
+        "tooltip-format": "{time} ({capacity}%)",
         "format-alt": "{time} {icon}",
         "format-full": "",
         "format-icons": [
@@ -88,14 +88,16 @@
             ]
         },
         "on-click": "volumectl toggle-mute",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "pavucontrol",
+        "tooltip-format": "{volume}% / {desc}"
     },
     "pulseaudio#source": {
         "format": "{format_source}",
         "format-source": "",
         "format-source-muted": "",
         "on-click": "volumectl -m toggle-mute",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "pavucontrol",
+        "tooltip-format": "{source_volume}% / {desc}"
     },
     "custom/power": {
         "format": "",

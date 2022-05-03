@@ -26,6 +26,12 @@ if [[ "$(hostnamectl hostname)" == "odin" ]]; then
 	ln -sf $f ~/.config/sway/sway.d/$file
   done
 fi
+if [[ "$(hostnamectl hostname)" == "loki" ]]; then
+  for f in $REPO/sway/loki.sway.d/*.conf; do
+	file="$(echo $f | rev | cut -d"/" -f1 | rev)"
+	ln -sf $f ~/.config/sway/sway.d/$file
+  done
+fi
 
 _info "Linking configs for waybar"
 mkdir -p ~/.config/waybar
