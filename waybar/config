@@ -4,21 +4,33 @@
         "sway/workspaces"
     ],
     "modules-center": [
-        "clock",
-        "idle_inhibitor"
+        "clock"
     ],
     "modules-right": [
         "tray",
         "custom/scratchpad-indicator",
         "pulseaudio",
         "pulseaudio#source",
+        "idle_inhibitor",
         "custom/power"
     ],
+	"sway/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": ""
+        }
+    },
     "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{essid} ",
         "format-ethernet": "{ifname} ",
         "format-disconnected": "",
-        "max-length": 50,
+		"tooltip-format":  "{ifname} / {essid} ({signalStrength}%) / {ipaddr}",
+        "max-length": 15,
         "on-click": "alacritty -e nmtui"
     },
     "idle_inhibitor": {
@@ -33,7 +45,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": "{:%Y-%m-%d %H:%M}"
+        "format": "{:%d %b %H:%M}"
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",

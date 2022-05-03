@@ -59,7 +59,7 @@ window#waybar {
 }
 /*-----Indicators----*/
 #idle_inhibitor.activated {
-  color: #BAE67E;
+  color: rgba(255, 213, 128, 1);
 }
 #battery.charging {
   color: #2dcc36;

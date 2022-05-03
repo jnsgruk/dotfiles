@@ -1,26 +1,38 @@
 {
     "exclusive": true,
     "modules-left": [
-        "sway/workspaces",
+        "sway/workspaces"
     ],
     "modules-center": [
-        "clock",
-        "idle_inhibitor"
+        "clock"
     ],
     "modules-right": [
         "tray",
         "custom/scratchpad-indicator",
+        "network",
         "pulseaudio",
         "pulseaudio#source",
-        "network",
         "battery",
+        "idle_inhibitor",
         "custom/power"
     ],
+    "sway/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": ""
+        }
+    },
     "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{essid} ",
         "format-ethernet": "{ifname} ",
         "format-disconnected": "",
-        "max-length": 50,
+		"tooltip-format":  "{ifname} / {essid} ({signalStrength}%) / {ipaddr}",
+        "max-length": 15,
         "on-click": "alacritty -e nmtui"
     },
     "idle_inhibitor": {
@@ -35,7 +47,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": "{:%Y-%m-%d %H:%M}"
+        "format": "{:%d %b %H:%M}"
     },
     "battery": {
         "states": {
@@ -43,9 +55,10 @@
             "warning": 20,
             "critical": 10
         },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
+        "format": "{icon}",
+        "format-charging": "",
+        "format-plugged": "",
+        "tooltip-format": "{capacity}% / {time}",
         "format-alt": "{time} {icon}",
         "format-full": "",
         "format-icons": [
