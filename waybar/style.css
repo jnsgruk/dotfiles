@@ -6,7 +6,12 @@
 }
 
 window#waybar {
-  background: rgba(34, 34, 34, 0.4);
+  background-color: transparent;
+}
+
+window > box {
+  margin: 8px 8px 0px 8px;
+  background: rgba(31, 36, 48, 0.4);
 }
 
 .modules-right {
