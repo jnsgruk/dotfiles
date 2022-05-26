@@ -56,6 +56,9 @@ format = "[$symbol$version](cyan bold) "
 [hg_branch]
 symbol = "(hg) "
 
+[hostname]
+ssh_symbol=""
+
 [kubernetes]
 disabled = false
 symbol = "(k8s)"
