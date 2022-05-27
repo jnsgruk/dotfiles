@@ -14,7 +14,6 @@ cp -R "${TOP_DIR}/vim" "${DIST_DIR}/dotfiles/vim"
 cp -R "${TOP_DIR}/zsh" "${DIST_DIR}/dotfiles/zsh"
 
 cp -R "${TOP_DIR}/scripts/install-packages-shell" "${DIST_DIR}/dotfiles/scripts/install-packages-shell"
-cp -R "${TOP_DIR}/scripts/install-fonts" "${DIST_DIR}/dotfiles/scripts/install-fonts"
 cp -R "${TOP_DIR}/scripts/link-configs-shell" "${DIST_DIR}/dotfiles/scripts/link-configs-shell"
 
 cd "${DIST_DIR}" || exit
@@ -27,7 +26,6 @@ PAYLOAD_LINE=\$(awk '/^__PAYLOAD_BELOW__/ {print NR + 1; exit 0; }' \${0})
 tail -n+\${PAYLOAD_LINE} \${0} | tar xz
 
 bash ./dotfiles/scripts/install-packages-shell
-bash ./dotfiles/scripts/install-fonts
 bash ./dotfiles/scripts/link-configs-shell
 
 exit 0

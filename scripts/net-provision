@@ -27,5 +27,4 @@ else
 fi
 
 bash "${HOME}/code/dotfiles/scripts/install-packages-shell"
-bash "${HOME}/code/dotfiles/scripts/install-fonts"
 bash "${HOME}/code/dotfiles/scripts/link-configs-shell"
