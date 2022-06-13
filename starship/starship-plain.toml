@@ -57,6 +57,7 @@ format = "[$symbol$version](cyan bold) "
 symbol = "(hg) "
 
 [hostname]
+ssh_only = false
 ssh_symbol=""
 
 [kubernetes]
@@ -76,7 +77,4 @@ disabled = false
 [username]
 show_always = true
 format = "[$user]($style)@"
-
-[hostname]
-ssh_only = false
 
