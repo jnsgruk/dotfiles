@@ -1,6 +1,9 @@
 # ZSH Options 
 setopt promptsubst
 unsetopt autocd # don't change directory automatically
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
 setopt incAppendHistoryTime
 
 bindkey -e
