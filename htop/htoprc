@@ -1,6 +1,6 @@
 # Beware! This file is rewritten by htop when settings are changed in the interface.
 # The parser is also very primitive, and not human-friendly.
-htop_version=3.2.0
+htop_version=3.2.1
 config_reader_min_version=3
 fields=0 48 46 47 2 1
 hide_kernel_threads=1
@@ -40,7 +40,7 @@ column_meters_2=RightCPUs2
 column_meter_modes_2=1
 column_meters_3=Memory Swap Battery
 column_meter_modes_3=1 1 1
-tree_view=1
+tree_view=0
 sort_key=46
 tree_sort_key=0
 sort_direction=-1
@@ -50,7 +50,7 @@ all_branches_collapsed=0
 screen:Main=PID USER PERCENT_CPU PERCENT_MEM STATE Command
 .sort_key=PERCENT_CPU
 .tree_sort_key=PID
-.tree_view=1
+.tree_view=0
 .tree_view_always_by_pid=1
 .sort_direction=-1
 .tree_sort_direction=1

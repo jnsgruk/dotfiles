@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Reload the v4l2loopback module, it gets funny when used multiple times
@@ -19,11 +18,12 @@ python \
   -d $SCRIPT_DIR/camera-share \
   65123 &
 
-wf-recorder \
+yes | wf-recorder \
   -g "$REGION" \
   --muxer=v4l2 \
   --codec=rawvideo \
   --file=/dev/video13 \
-  --pixel-format=yuv420p
+  --pixel-format=yuv420p \
+  --force-yuv
 
 kill -9 $(ps aux | grep python | grep http.server | tr -s ' ' | cut -d" " -f2)
