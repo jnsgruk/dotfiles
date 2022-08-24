@@ -36,3 +36,4 @@ if command -v bat >/dev/null; then
 fi
 
 alias k="kubectl"
+alias tmux="TERM=xterm-256color tmux"

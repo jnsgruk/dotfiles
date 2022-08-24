@@ -54,6 +54,9 @@ _info "Linking configs for ulauncher"
 _info "Linking configs for alacritty"
 [[ ! -L ~/.config/alacritty ]] && ln -sf $REPO/alacritty ~/.config/alacritty
 
+_info "Linking configs for swappy"
+[[ ! -L ~/.config/swappy ]] && ln -sf $REPO/swappy ~/.config/swappy
+
 _info "Linking configs for gtk-3.0"
 mkdir -p ~/.config/gtk-3.0
 ln -sf $REPO/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini
