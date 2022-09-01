@@ -37,3 +37,9 @@ fi
 
 alias k="kubectl"
 alias tmux="TERM=xterm-256color tmux"
+
+alias ts="tailscale"
+alias tssh="tailscale ssh"
+alias tst="tailscale status"
+alias tsu="tailscale up --ssh --operator=$USER"
+alias tsd="tailscale down"
