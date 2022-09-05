@@ -1,0 +1,14 @@
+profile "laptop" {
+  output eDP-1 enable position 0,0 scale 2
+}
+
+profile "external-display" {
+  output eDP-1 enable position 0,0 scale 2
+  
+  # Use this profile when attaching a native full-HD display
+  # output DP-2 enable position 0,-1080
+  
+  # Use this profile when attaching another 4K display to run
+  # at native resolution:
+  output DP-2 enable position -960,-2160
+}

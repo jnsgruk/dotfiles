@@ -1,6 +1,6 @@
 #!/bin/bash
-SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-TOP_DIR=$( cd "$( dirname "${SCRIPT_DIR}" )" && pwd )
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+TOP_DIR=$(cd "$(dirname "${SCRIPT_DIR}")" && pwd)
 DIST_DIR="${TOP_DIR}/dist"
 
 rm -rf "${DIST_DIR}"
@@ -20,19 +20,19 @@ cd "${DIST_DIR}" || exit
 tar -czf "${DIST_DIR}/dotfiles.tar.gz" dotfiles/
 rm -rf "${DIST_DIR}/dotfiles"
 
-cat <<-EOF > "${DIST_DIR}/temp.sh"
-#!/bin/bash
-PAYLOAD_LINE=\$(awk '/^__PAYLOAD_BELOW__/ {print NR + 1; exit 0; }' \${0})
-tail -n+\${PAYLOAD_LINE} \${0} | tar xz
+cat <<-EOF >"${DIST_DIR}/temp.sh"
+	#!/bin/bash
+	PAYLOAD_LINE=\$(awk '/^__PAYLOAD_BELOW__/ {print NR + 1; exit 0; }' \${0})
+	tail -n+\${PAYLOAD_LINE} \${0} | tar xz
 
-bash ./dotfiles/scripts/install-packages-shell
-bash ./dotfiles/scripts/link-configs-shell
+	bash ./dotfiles/scripts/install-packages-shell
+	bash ./dotfiles/scripts/link-configs-shell
 
-exit 0
-__PAYLOAD_BELOW__
+	exit 0
+	__PAYLOAD_BELOW__
 EOF
 
-cat "${DIST_DIR}/temp.sh" "${DIST_DIR}/dotfiles.tar.gz" > "${DIST_DIR}/installer.sh"
+cat "${DIST_DIR}/temp.sh" "${DIST_DIR}/dotfiles.tar.gz" >"${DIST_DIR}/installer.sh"
 rm -rf "${DIST_DIR}/temp.sh" "${DIST_DIR}/dotfiles.tar.gz"
 chmod +x installer.sh
-cp "${SCRIPT_DIR}/net-provision" "${DIST_DIR}/net-provision" 
+cp "${SCRIPT_DIR}/net-provision" "${DIST_DIR}/net-provision"

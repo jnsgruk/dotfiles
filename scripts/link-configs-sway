@@ -3,60 +3,63 @@ set -euo pipefail
 # Output green message prefixed with [+]
 _info() { echo -e "\e[92m[+] ${1:-}\e[0m"; }
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-REPO=$( cd "$( dirname "${DIR}" )" && pwd )
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+REPO=$(cd "$(dirname "${DIR}")" && pwd)
 
 _info "Linking configs for sway"
-mkdir -p ~/.config/sway/sway.d
+mkdir -p "${HOME}/.config/sway/sway.d"
 # Link the top level config
-ln -sf $REPO/sway/config ~/.config/sway/config
+ln -sf "${REPO}/sway/config" "${HOME}/.config/sway/config"
 # Link the entire scripts directory
-[[ ! -L ~/.config/sway/scripts ]] && ln -s $REPO/sway/scripts ~/.config/sway/scripts
+[[ ! -L "${HOME}/.config/sway/scripts" ]] && ln -s "$REPO/sway/scripts" "${HOME}/.config/sway/scripts"
 
 # Individually link the confs in the sway.d directory
-for f in $REPO/sway/sway.d/*.conf; do
-   file="$(echo $f | rev | cut -d"/" -f1 | rev)"
-   ln -sf $f ~/.config/sway/sway.d/$file
+for f in "${REPO}"/sway/sway.d/*.conf; do
+	file="$(echo "$f" | rev | cut -d"/" -f1 | rev)"
+	ln -sf "$f" "${HOME}/.config/sway/sway.d/${file}"
 done
 
 # If we're on 'odin' then overwrite some of the configs for outputs/workspaces
 if [[ "$(hostnamectl hostname)" == "odin" ]]; then
-  for f in $REPO/sway/odin.sway.d/*.conf; do
-	file="$(echo $f | rev | cut -d"/" -f1 | rev)"
-	ln -sf $f ~/.config/sway/sway.d/$file
-  done
+	for f in "${REPO}"/sway/odin.sway.d/*.conf; do
+		file="$(echo "$f" | rev | cut -d"/" -f1 | rev)"
+		ln -sf "$f" "${HOME}/.config/sway/sway.d/${file}"
+	done
+
+	_info "Linking configs for kanshi"
+	[[ ! -L "${HOME}/.config/kanshi" ]] && ln -sf "${REPO}/kanshi" "${HOME}/.config/kanshi"
 fi
 if [[ "$(hostnamectl hostname)" == "loki" ]]; then
-  for f in $REPO/sway/loki.sway.d/*.conf; do
-	file="$(echo $f | rev | cut -d"/" -f1 | rev)"
-	ln -sf $f ~/.config/sway/sway.d/$file
-  done
+	for f in "${REPO}"/sway/loki.sway.d/*.conf; do
+		file="$(echo "$f" | rev | cut -d"/" -f1 | rev)"
+		ln -sf "$f" "${HOME}/.config/sway/sway.d/${file}"
+	done
 fi
 
 _info "Linking configs for waybar"
-mkdir -p ~/.config/waybar
-ln -sf $REPO/waybar/style.css ~/.config/waybar/style.css
+mkdir -p "${HOME}/.config/waybar"
+ln -sf "${REPO}/waybar/style.css" "${HOME}/.config/waybar/style.css"
 if [[ "$(hostnamectl hostname)" == "odin" ]]; then
-   ln -sf $REPO/waybar/config.odin ~/.config/waybar/config
+	ln -sf "${REPO}/waybar/config.odin" "${HOME}/.config/waybar/config"
 else
-   ln -sf $REPO/waybar/config ~/.config/waybar/config
+	ln -sf "${REPO}/waybar/config" "${HOME}/.config/waybar/config"
 fi
 
 _info "Linking configs for swaylock"
-[[ ! -L ~/.config/swaylock ]] && ln -sf $REPO/swaylock ~/.config/swaylock
+[[ ! -L "${HOME}/.config/swaylock" ]] && ln -sf "${REPO}/swaylock" "${HOME}/.config/swaylock"
 
 _info "Linking configs for mako"
-[[ ! -L ~/.config/mako ]] && ln -sf $REPO/mako ~/.config/mako
+[[ ! -L "${HOME}/.config/mako" ]] && ln -sf "${REPO}/mako" "${HOME}/.config/mako"
 
 _info "Linking configs for ulauncher"
-[[ ! -L ~/.config/ulauncher ]] && ln -sf $REPO/ulauncher ~/.config/ulauncher
+[[ ! -L "${HOME}/.config/ulauncher" ]] && ln -sf "${REPO}/ulauncher" "${HOME}/.config/ulauncher"
 
 _info "Linking configs for alacritty"
-[[ ! -L ~/.config/alacritty ]] && ln -sf $REPO/alacritty ~/.config/alacritty
+[[ ! -L "${HOME}/.config/alacritty" ]] && ln -sf "${REPO}/alacritty" "${HOME}/.config/alacritty"
 
 _info "Linking configs for swappy"
-[[ ! -L ~/.config/swappy ]] && ln -sf $REPO/swappy ~/.config/swappy
+[[ ! -L "${HOME}/.config/swappy" ]] && ln -sf "${REPO}/swappy" "${HOME}/.config/swappy"
 
 _info "Linking configs for gtk-3.0"
-mkdir -p ~/.config/gtk-3.0
-ln -sf $REPO/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini
+mkdir -p "${HOME}/.config/gtk-3.0"
+ln -sf "${REPO}/gtk-3.0/settings.ini" "${HOME}/.config/gtk-3.0/settings.ini"

@@ -4,212 +4,342 @@ set -euo pipefail
 _info() { echo -e "\e[92m[+] ${1:-}\e[0m"; }
 
 GITHUB="https://github.com"
-DEBIAN_FRONTEND="noninteractive"
+SRCHUT="https://git.sr.ht"
 OS="$(grep -Po '^ID=\K.+$' /etc/os-release)"
+export DEBIAN_FRONTEND="noninteractive"
 
 _build_install_with_ninja() {
-    meson build
-    ninja -C build
-    sudo ninja -C build install
+	meson build
+	ninja -C build
+	sudo ninja -C build install
+}
+
+_prep_src() {
+	local name="$1"
+	local repo="$2"
+	local tag="$3"
+	# Shift args and reconstruct the array from the rest of the args
+	shift 3
+	local deps=("$@")
+
+	_info "Installing ${name}"
+	# Install dependencies
+	sudo apt-get install -y "${deps[@]}"
+	# Remove any existing repo/checkout
+	rm -rf "${HOME}/build/${name}"
+	# Clone the correct version of the repo
+	git clone -b "${tag}" "${repo}" "${HOME}/build/${name}"
+	cd "${HOME}/build/${name}"
+}
+
+_build_install_kanshi() {
+	SRC_NAME="kanshi"
+	SRC_VERSION="v1.3.0"
+	SRC_REPO="${SRCHUT}/~emersion/kanshi"
+	SRC_DEPS=(
+		build-essential
+		cmake
+		git
+		libwayland-dev
+		meson
+		ninja-build
+		pkg-config
+		scdoc
+		wayland-protocols
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
 _build_install_waybar() {
-    _info "Installing waybar"
-    V_WAYBAR="0.9.12"
-    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build \
-                            wayland-protocols scdoc clang-tidy gobject-introspection \
-                            libdbusmenu-gtk3-dev libevdev-dev libfmt-dev libgirepository1.0-dev \
-                            libgtk-3-dev libgtkmm-3.0-dev libinput-dev libjsoncpp-dev \
-                            libmpdclient-dev libnl-3-dev libnl-genl-3-dev libpulse-dev \
-                            libsigc++-2.0-dev libspdlog-dev libwayland-dev libxkbregistry-dev
-    git clone -b "$V_WAYBAR" "$GITHUB/Alexays/Waybar" ~/build/waybar
-    cd ~/build/waybar
-    _build_install_with_ninja
+	SRC_NAME="waybar"
+	SRC_VERSION="0.9.13"
+	SRC_REPO="$GITHUB/Alexays/Waybar"
+	SRC_DEPS=(
+		build-essential
+		clang-tidy
+		cmake
+		git
+		gobject-introspection
+		libdbusmenu-gtk3-dev
+		libevdev-dev
+		libfmt-dev
+		libgirepository1.0-dev
+		libgtk-3-dev
+		libgtkmm-3.0-dev
+		libinput-dev
+		libjsoncpp-dev
+		libmpdclient-dev
+		libnl-3-dev
+		libnl-genl-3-dev
+		libpulse-dev
+		libsigc++-2.0-dev
+		libspdlog-dev
+		libwayland-dev
+		libxkbregistry-dev
+		meson
+		ninja-build
+		pkg-config
+		scdoc
+		wayland-protocols
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
 _build_install_swaylock_effects() {
-    _info "Installing swaylock-effects"
-    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build \
-                            wayland-protocols scdoc libgdk-pixbuf2.0-dev libcairo-dev \
-                            libxkbcommon-dev libwayland-dev libpam-dev bash-completion
-    git clone "$GITHUB/mortie/swaylock-effects" ~/build/swaylock-effects
-    cd ~/build/swaylock-effects
-    # TODO: The latest tag didn't build at time of writing, replace this sometime
-    git checkout a8fc557b86e70f2f7a30ca9ff9b3124f89e7f204
-    _build_install_with_ninja
+	SRC_NAME="swaylock-effects"
+	SRC_VERSION="v1.6.10"
+	SRC_REPO="$GITHUB/jirutka/swaylock-effects"
+	SRC_DEPS=(
+		bash-completion
+		build-essential
+		cmake
+		git
+		libcairo-dev
+		libgdk-pixbuf2.0-dev
+		libpam-dev
+		libwayland-dev
+		libxkbcommon-dev
+		meson
+		ninja-build
+		pkg-config
+		scdoc
+		wayland-protocols
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
 _build_install_wlsunset() {
-    _info "Installing wlsunset"
-    V_WLSUNSET="0.2.0"
-    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build libwayland-dev \
-                            wayland-protocols scdoc
-    git clone -b "$V_WLSUNSET" "https://git.sr.ht/~kennylevinsen/wlsunset" ~/build/wlsunset
-    cd ~/build/wlsunset
-    _build_install_with_ninja
+	SRC_NAME="wlsunset"
+	SRC_VERSION="0.2.0"
+	SRC_REPO="${SRCHUT}/~kennylevinsen/wlsunset"
+	SRC_DEPS=(
+		build-essential
+		cmake
+		git
+		libwayland-dev
+		meson
+		ninja-build
+		pkg-config
+		scdoc
+		wayland-protocols
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
 _build_install_xdg_desktop_portal_wlr() {
-    _info "Installing xdg-desktop-portal-wlr"
-    V_XDGDP="v0.2.0"
-    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build \
-                            wayland-protocols libwayland-dev xdg-desktop-portal libpipewire-0.3-dev \
-                            libinih-dev libsystemd-dev scdoc
-    git clone -b "$V_XDGDP" "$GITHUB/emersion/xdg-desktop-portal-wlr" ~/build/xdg-desktop-portal-wlr
-    cd ~/build/xdg-desktop-portal-wlr
-    _build_install_with_ninja
+	SRC_NAME="xdg-desktop-portal-wlr"
+	SRC_VERSION="v0.6.0"
+	SRC_REPO="$GITHUB/emersion/xdg-desktop-portal-wlr"
+	SRC_DEPS=(
+		build-essential
+		cmake
+		git
+		libdrm-dev
+		libgbm-dev
+		libinih-dev
+		libpipewire-0.3-dev
+		libsystemd-dev
+		libwayland-dev
+		meson
+		ninja-build
+		pkg-config
+		scdoc
+		wayland-protocols
+		xdg-desktop-portal
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
-_build_install_swappy() { 
-    _info "Installing swappy"
-    V_SWAPPY="v1.4.0"
-    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build libcairo-dev \
-                            wayland-protocols libpango1.0-dev libgtk-3-dev scdoc
-    git clone -b "$V_SWAPPY" "$GITHUB/jtheoof/swappy" ~/build/swappy
-    cd ~/build/swappy
-    _build_install_with_ninja
+_build_install_swappy() {
+	SRC_NAME="swappy"
+	SRC_VERSION="v1.4.0"
+	SRC_REPO="$GITHUB/jtheoof/swappy"
+	SRC_DEPS=(
+		build-essential
+		cmake
+		git
+		libcairo-dev
+		libgtk-3-dev
+		libpango1.0-dev
+		meson
+		ninja-build
+		pkg-config
+		scdoc
+		wayland-protocols
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
 _build_install_alacritty() {
-    _info "Installing alacritty"
-    V_ALACRITTY="v0.10.1"
-    sudo apt-get install -y git libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
-                                libxkbcommon-dev python3 cargo desktop-file-utils
-    git clone -b "$V_ALACRITTY" "$GITHUB/alacritty/alacritty.git" ~/build/alacritty
-    cd ~/build/alacritty
-    cargo build --release
-    
-    # Install the terminfo profile
-    sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
-    # Install alacritty and desktop file
-    sudo cp target/release/alacritty /usr/local/bin
-    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-    sudo desktop-file-install extra/linux/Alacritty.desktop
-    sudo update-desktop-database
-    # Install the man pages
-    sudo mkdir -p /usr/local/share/man/man1
-    gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
-    gzip -c extra/alacritty-msg.man | sudo tee /usr/local/share/man/man1/alacritty-msg.1.gz > /dev/null
+	SRC_NAME="alacritty"
+	SRC_VERSION="v0.10.1"
+	SRC_REPO="$GITHUB/alacritty/alacritty.git"
+	SRC_DEPS=(
+		cargo
+		desktop-file-utils
+		git
+		libfontconfig1-dev
+		libfreetype6-dev
+		libxcb-xfixes0-dev
+		libxkbcommon-dev
+		python3
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+
+	cargo build --release
+
+	# Install the terminfo profile
+	sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+	# Install alacritty and desktop file
+	sudo cp target/release/alacritty /usr/local/bin
+	sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+	sudo desktop-file-install extra/linux/Alacritty.desktop
+	sudo update-desktop-database
+	# Install the man pages
+	sudo mkdir -p /usr/local/share/man/man1
+	gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz >/dev/null
+	gzip -c extra/alacritty-msg.man | sudo tee /usr/local/share/man/man1/alacritty-msg.1.gz >/dev/null
 }
 
 _build_install_avizo() {
-    _info "Installing avizo"
-    V_AVIZO="1.2"
-    sudo apt-get install -y git build-essential cmake pkg-config meson ninja-build valac cmake \
-                            libgtk-3-dev libgirepository1.0-dev libgtk-layer-shell-dev
-    git clone -b "$V_AVIZO" "$GITHUB/misterdanb/avizo.git" ~/build/avizo
-    cd ~/build/avizo
-    _build_install_with_ninja
+	SRC_NAME="avizo"
+	SRC_VERSION="1.2.1"
+	SRC_REPO="$GITHUB/misterdanb/avizo.git"
+	SRC_DEPS=(
+		build-essential
+		cmake
+		cmake
+		git
+		libgirepository1.0-dev
+		libgtk-3-dev
+		libgtk-layer-shell-dev
+		meson
+		ninja-build
+		pkg-config
+		valac
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
 _build_install_pamixer() {
-    _info "Installing pamixer"
-    V_PAMIXER="1.5"
-    sudo apt-get install -y git build-essential libpulse-dev libcxxopts-dev libboost-program-options-dev
-    git clone -b $V_PAMIXER "$GITHUB/cdemoulins/pamixer.git" ~/build/pamixer
-    cd ~/build/pamixer
-    make
-    sudo make install
+	SRC_NAME="pamixer"
+	SRC_VERSION="1.6"
+	SRC_REPO="$GITHUB/cdemoulins/pamixer.git"
+	SRC_DEPS=(
+		build-essential
+		git
+		libboost-program-options-dev
+		libcxxopts-dev
+		libpulse-dev
+	)
+	_prep_src "${SRC_NAME}" "${SRC_REPO}" "${SRC_VERSION}" "${SRC_DEPS[@]}"
+	_build_install_with_ninja
 }
 
 _install_packages_ubuntu() {
-    _info "Updating package cache"
-    sudo apt-get update
+	_info "Updating package cache"
+	sudo apt-get update
 
-    _info "Installing packages from the archives"
-    sudo apt-get install -y \
-	    sway \
-        golang \
-        mako-notifier \
-        swayidle \
-        playerctl \
-        wl-clipboard \
-        brightnessctl \
-        wmctrl \
-        xdg-desktop-portal \
-        wf-recorder \
-        grim \
-        slurp \
-        arc-theme \
-        papirus-icon-theme \
-        policykit-1-gnome \
-        nautilus \
-        gnome-sushi \
-        eog \
-        evince \
-        pavucontrol \
+	_info "Installing packages from the archives"
+	sudo apt-get install -y \
+		apparmor-utils \
+		arc-theme \
+		brightnessctl \
+		eog \
+		evince \
+		gnome-disk-utility \
+		gnome-sushi \
+		golang \
+		grim \
+		mako-notifier \
+		nautilus \
+		papirus-icon-theme \
+		pavucontrol \
+		playerctl \
+		policykit-1-gnome \
+		slurp \
+		sway \
+		swayidle \
 		v4l2loopback-dkms \
 		v4l2loopback-utils \
-		apparmor-utils \
-        gnome-disk-utility
+		wf-recorder \
+		wl-clipboard \
+		wmctrl \
+		xdg-desktop-portal
 
-    # Needed for brightnessctl
-    _info "Adding user '$USER' to 'input' and 'video' groups"
-    sudo usermod -aG input "$USER"
-    sudo usermod -aG video "$USER"
+	# Needed for brightnessctl
+	_info "Adding user '$USER' to 'input' and 'video' groups"
+	sudo usermod -aG input "$USER"
+	sudo usermod -aG video "$USER"
 
-    _info "Installing clipman"
-    go install github.com/yory8/clipman@latest
+	_info "Installing clipman"
+	go install github.com/yory8/clipman@latest
 
-    _info "Installing ulauncher"
-    sudo add-apt-repository -yr ppa:agornostal/ulauncher
-    sudo add-apt-repository -n -y ppa:agornostal/ulauncher
-    # TODO: Replace this when there is a PPA for Jammy
-    sudo sed -i 's/jammy/focal/g' /etc/apt/sources.list.d/agornostal-ubuntu-ulauncher-jammy.list
-    sudo apt-get update
-    sudo apt-get install -y ulauncher
+	_info "Installing ulauncher"
+	sudo rm -rf /etc/apt/sources.list.d/agornostal-ubuntu-ulauncher*
+	sudo add-apt-repository -n -y ppa:agornostal/ulauncher
+	sudo apt-get install -y ulauncher
 
-    # The following will only work on Ubuntu Jammy and onwards due to versions
-    # of build tools and libraries.
-    _build_install_waybar
-    _build_install_swaylock_effects
-    _build_install_wlsunset
-    _build_install_xdg_desktop_portal_wlr
-    _build_install_swappy
-    _build_install_alacritty
-    _build_install_avizo
-    _build_install_pamixer
+	# The following will only work on Ubuntu Jammy and onwards due to versions
+	# of build tools and libraries.
+	_build_install_avizo
+	_build_install_kanshi
+	_build_install_pamixer
+	_build_install_swappy
+	_build_install_swaylock_effects
+	_build_install_waybar
+	_build_install_wlsunset
+	_build_install_xdg_desktop_portal_wlr
+	_build_install_alacritty
 }
 
 _install_packages_arch() {
-    _info "Installing packages"
-    yay -S \
-	    sway \
-        clipman \
-        mako \
-        ulauncher \
-        swayidle \
-        waybar \
-        swaylock-effects \
-        playerctl \
-        wl-clipboard \
-        brightnessctl \
-        wmctrl \
-        xdg-desktop-portal-wlr \
-        xdg-desktop-portal \
-        wf-recorder \
-        wlsunset \
-        grim \
-        slurp \
-        swappy \
-        alacritty \
-        avizo \
-        pamixer \
-        polkit-gnome \
-        arc-gtk-theme \
-        papirus-icon-theme \
-        nautilus \
-        sushi \
-        eog \
-        evince \
-        gnome-disk-utility \
-		v4l2loopback-utils \
+	_info "Installing packages"
+	yay -S \
+		alacritty \
+		arc-gtk-theme \
+		avizo \
+		brightnessctl \
+		clipman \
+		eog \
+		evince \
+		gnome-disk-utility \
+		grim \
+		kanshi \
+		mako \
+		nautilus \
+		pamixer \
+		papirus-icon-theme \
+		pavucontrol \
+		playerctl \
+		polkit-gnome \
+		slurp \
+		sushi \
+		swappy \
+		sway \
+		swayidle \
+		swaylock-effects \
+		ulauncher \
 		v4l2loopback-dkms \
-        pavucontrol
+		v4l2loopback-utils \
+		waybar \
+		wf-recorder \
+		wl-clipboard \
+		wlsunset \
+		wmctrl \
+		xdg-desktop-portal \
+		xdg-desktop-portal-wlr
 }
 
 if [[ "$OS" == "ubuntu" ]]; then
-    _install_packages_ubuntu
+	_install_packages_ubuntu
 elif [[ "$OS" == "arch" ]]; then
-    _install_packages_arch
+	_install_packages_arch
 fi

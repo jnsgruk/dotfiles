@@ -3,76 +3,76 @@ set -euo pipefail
 # Output green message prefixed with [+]
 _info() { echo -e "\e[92m[+] ${1:-}\e[0m"; }
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-REPO=$( cd "$( dirname "${DIR}" )" && pwd )
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+REPO=$(cd "$(dirname "${DIR}")" && pwd)
 GITHUB="https://github.com"
 
 # Set default shells
 if command -v zsh >/dev/null; then
-    _info "Changing default shells to zsh for '$USER' and 'root'"
-    sudo chsh -s /bin/zsh $USER
-    sudo chsh -s /bin/zsh root
+	_info "Changing default shells to zsh for '$USER' and 'root'"
+	sudo chsh -s /bin/zsh "$USER"
+	sudo chsh -s /bin/zsh root
 fi
 
-mkdir -p ~/.config 
+mkdir -p "${HOME}/.config"
 
 # zsh config
 _info "Linking zsh configs"
-ln -sf $REPO/zsh/.zshrc ~/.zshrc
-[[ ! -L ~/.zsh_config ]] && ln -sf $REPO/zsh/.zsh_config ~/.zsh_config
+ln -sf "${REPO}/zsh/.zshrc" "${HOME}/.zshrc"
+[[ ! -L ${HOME}/.zsh_config ]] && ln -sf "${REPO}/zsh/.zsh_config" "${HOME}/.zsh_config"
 
-if [[ ! -d ~/.zsh_config/zsh-autosuggestions ]]; then
-    _info "Cloning zsh-autosuggestions from Github"
-    git clone "$GITHUB/zsh-users/zsh-autosuggestions" ~/.zsh_config/zsh-autosuggestions
+if [[ ! -d ${HOME}/.zsh_config/zsh-autosuggestions ]]; then
+	_info "Cloning zsh-autosuggestions from Github"
+	git clone "${GITHUB}/zsh-users/zsh-autosuggestions" "$HOME/.zsh_config/zsh-autosuggestions"
 fi
 
-if [[ ! -d ~/.zsh_config/zsh-syntax-highlighting ]]; then
-    _info "Cloning zsh-syntax-highlighting from Github"
-    git clone "$GITHUB/zsh-users/zsh-syntax-highlighting" ~/.zsh_config/zsh-syntax-highlighting
+if [[ ! -d ${HOME}/.zsh_config/zsh-syntax-highlighting ]]; then
+	_info "Cloning zsh-syntax-highlighting from Github"
+	git clone "${GITHUB}/zsh-users/zsh-syntax-highlighting" "$HOME/.zsh_config/zsh-syntax-highlighting"
 fi
 
 # starship config
 _info "Linking starship configs"
-ln -sf $REPO/starship/starship.toml ~/.config/starship.toml
-ln -sf $REPO/starship/starship-plain.toml ~/.config/starship-plain.toml
+ln -sf "${REPO}/starship/starship.toml" "${HOME}/.config/starship.toml"
+ln -sf "${REPO}/starship/starship-plain.toml" "${HOME}/.config/starship-plain.toml"
 
 # htop config
 _info "Linking htop config"
-mkdir -p ~/.config/htop
-ln -sf $REPO/htop/htoprc ~/.config/htop/htoprc
+mkdir -p" ${HOME}/.config/htop"
+ln -sf "${REPO}/htop/htoprc" "${HOME}/.config/htop/htoprc"
 
 # xdg-config
 _info "Linking xdg-user-dirs config"
-ln -sf $REPO/xdg-user-dirs/user-dirs.dirs ~/.config/user-dirs.dirs
+ln -sf "${REPO}/xdg-user-dirs/user-dirs.dirs" "${HOME}/.config/user-dirs.dirs"
 
 # git config
 _info "Linking git configs"
-ln -sf $REPO/git/.gitconfig ~/.gitconfig
-ln -sf $REPO/git/.gitignore ~/.gitignore
+ln -sf "${REPO}/git/.gitconfig" "${HOME}/.gitconfig"
+ln -sf "${REPO}/git/.gitignore" "${HOME}/.gitignore"
 
-# tmux config 
+# tmux config
 _info "Linking tmux config"
-ln -sf $REPO/tmux/.tmux.conf ~/.tmux.conf
+ln -sf "${REPO}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
 
 # vim config
 _info "Linking vim configs"
-mkdir -p ~/.vim/bundle
-ln -sf $REPO/vim/.vimrc ~/.vimrc
-ln -sf $REPO/vim/setup.vim ~/.vim/setup.vim
+mkdir -p "${HOME}/.vim/bundle"
+ln -sf "${REPO}/vim/.vimrc" "${HOME}/.vimrc"
+ln -sf "${REPO}/vim/setup.vim" "${HOME}/.vim/setup.vim"
 
-if [[ ! -d ~/.vim/bundle/Vundle.vim ]]; then
-    _info "Cloning Vundle from Github"
-    git clone "$GITHUB/VundleVim/Vundle.vim.git" ~/.vim/bundle/Vundle.vim
+if [[ ! -d "${HOME}/.vim/bundle/Vundle.vim" ]]; then
+	_info "Cloning Vundle from Github"
+	git clone "${GITHUB}/VundleVim/Vundle.vim.git" "${HOME}/.vim/bundle/Vundle.vim"
 fi
 
 _info "Running vim setup script"
-vim -s ~/.vim/setup.vim
+vim -s "${HOME}/.vim/setup.vim"
 
 # Root user stuff
 _info "Configuring zsh for root user"
-sudo cp $REPO/zsh/root.zshrc /root/.zshrc
-sudo mkdir -p /root/.config
-sudo cp $REPO/starship/starship-plain.toml /root/.config/starship.toml
+sudo cp "${REPO}/zsh/root.zshrc" "/root/.zshrc"
+sudo mkdir -p "/root/.config"
+sudo cp "${REPO}/starship/starship-plain.toml" "/root/.config/starship.toml"
 
 # misc config
-mkdir -p ~/.ssh
+mkdir -p "${HOME}/.ssh"
