@@ -13,7 +13,7 @@ elif [[ "$TYPE" == "region" ]]; then
   REGION="$(slurp)"
 fi
 
-python \
+python3 \
   -m http.server \
   -d $SCRIPT_DIR/camera-share \
   65123 &
