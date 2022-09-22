@@ -38,7 +38,7 @@ ln -sf "${REPO}/starship/starship-plain.toml" "${HOME}/.config/starship-plain.to
 
 # htop config
 _info "Linking htop config"
-mkdir -p" ${HOME}/.config/htop"
+mkdir -p "${HOME}/.config/htop"
 ln -sf "${REPO}/htop/htoprc" "${HOME}/.config/htop/htoprc"
 
 # xdg-config
