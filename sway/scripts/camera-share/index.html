@@ -15,6 +15,8 @@
       const videoElement = document.querySelector("video")
 
       const start = async () => {
+        // Request access to camera devices
+		await navigator.mediaDevices.getUserMedia({audio: false, video: true})
         // Get a list of all available mediaDevices
         const devices = await navigator.mediaDevices.enumerateDevices()
         // console.log(devices)
@@ -22,6 +24,7 @@
           video: {
             deviceId: devices.find(d => d.label === "ShareScreen").deviceId
           }
+
         }
         // Set the video element to use the stream from our selected camera
         videoElement.srcObject = await navigator.mediaDevices.getUserMedia(constraints)
