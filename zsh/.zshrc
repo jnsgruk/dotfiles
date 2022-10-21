@@ -19,6 +19,7 @@ sysssh
 eval "$(starship init zsh)"
 eval "$(ssh-agent -a ${SSH_AUTH_SOCK} 2> /dev/null)"
 
+source $HOME/.zsh_config/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 source $HOME/.zsh_config/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zsh_config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

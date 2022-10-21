@@ -2,11 +2,9 @@ filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ayu-theme/ayu-vim'
+	Plugin 'VundleVim/Vundle.vim'
+	Plugin 'itchyny/lightline.vim'
+	Plugin 'catppuccin/vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -24,9 +22,8 @@ syntax on 	"set syntax highlighting on
 set bg=dark	"default to dark background
 set laststatus=2
 
-if filereadable( expand("$HOME/.vim/bundle/ayu-vim/colors/ayu.vim") )
-  let ayucolor="mirage"
-  color ayu
+if filereadable( expand("$HOME/.vim/bundle/vim/colors/catppuccin_macchiato.vim") )
+  color catppuccin_macchiato
 endif
 
 set showmatch "show matching brackets
@@ -38,17 +35,11 @@ set cindent
 set autoindent
 set smartindent
 set smarttab
-set noexpandtab "actual tabs not spaces!
-set tabstop=4 "tab width
+set tabstop=2 "tab width
 set shiftwidth=2
 set bs=indent,eol,start "make the backspace key actually work
 set cinkeys=0{,0},:,0#,!^F
 set nocompatible
 
-if $TERM == "linux"
-  let g:airline_powerline_fonts = 0
-else
-  let g:airline_powerline_fonts = 1
-endif
+let g:lightline = {'colorscheme': 'catppuccin_macchiato'}
   
-let g:airline_theme='powerlineish'

@@ -304,9 +304,9 @@ _install_packages_arch() {
 	_info "Installing packages"
 	yay -S \
 		alacritty \
-		arc-gtk-theme \
 		avizo \
 		brightnessctl \
+		catppuccin-gtk-theme-macchiato \
 		clipman \
 		eog \
 		evince \
@@ -324,6 +324,7 @@ _install_packages_arch() {
 		sushi \
 		swappy \
 		sway \
+		swagbg \
 		swayidle \
 		swaylock-effects \
 		ulauncher \

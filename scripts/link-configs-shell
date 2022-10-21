@@ -51,8 +51,13 @@ ln -sf "${REPO}/git/.gitconfig" "${HOME}/.gitconfig"
 ln -sf "${REPO}/git/.gitignore" "${HOME}/.gitignore"
 
 # tmux config
+_info "Linking bat config"
+[[ ! -L "${HOME}/.config/bat" ]] && ln -sf "${REPO}/bat" "${HOME}/.config/bat"
+
+# tmux config
 _info "Linking tmux config"
 ln -sf "${REPO}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
+[[ ! -L "${HOME}/.tmux" ]] && ln -sf "${REPO}/tmux/.tmux" "${HOME}/.tmux"
 
 # vim config
 _info "Linking vim configs"

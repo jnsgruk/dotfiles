@@ -1,7 +1,14 @@
 font="Liga SFMono Nerd Font"
-background-color=#24293660
-progress-color=#FFD580
-border-color=#FFD580
+
+# Colors
+background-color=#24273a
+text-color=#cad3f5
+border-color=#8aadf4
+progress-color=over #363a4f
+
+[urgency=high]
+border-color=#f5a97f
+
 icons=1
 padding=20
 width=450

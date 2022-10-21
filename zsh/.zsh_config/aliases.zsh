@@ -32,7 +32,7 @@ if command -v exa >/dev/null; then
 fi
 
 if command -v bat >/dev/null; then
-  alias cat='bat'
+  alias cat='bat --theme="Catppuccin-macchiato"'
 fi
 
 alias k="kubectl"
@@ -43,3 +43,5 @@ alias tssh="tailscale ssh"
 alias tst="tailscale status"
 alias tsu="tailscale up --ssh --operator=$USER"
 alias tsd="tailscale down"
+
+alias shellcheck="docker run --rm -v "${PWD}:/mnt" koalaman/shellcheck:stable"
