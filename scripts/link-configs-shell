@@ -57,7 +57,11 @@ _info "Linking bat config"
 # tmux config
 _info "Linking tmux config"
 ln -sf "${REPO}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
-[[ ! -L "${HOME}/.tmux" ]] && ln -sf "${REPO}/tmux/.tmux" "${HOME}/.tmux"
+if [[ ! -d "${HOME}/.tmux/plugins/tpm" ]]; then
+	_info "Cloning tmux plugin manager from Github"
+	mkdir -p ${HOME}/.tmux/plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
 # vim config
 _info "Linking vim configs"
