@@ -4,24 +4,25 @@ set -euo pipefail
 _info() { echo -e "\e[92m[+] ${1:-}\e[0m"; }
 
 GITHUB="https://github.com"
+FONT_DIR="${HOME}/.local/share/fonts"
 
 # Fonts directory
-_info "Creating fonts directory at /usr/share/fonts/custom"
-sudo mkdir -p /usr/share/fonts/custom
+_info "Creating fonts directory at $FONT_DIR"
+mkdir -p "$FONT_DIR"
 
 # install San Francisco Pro fonts
 _info "Installing San Francisco Pro fonts"
 wget -qO /tmp/sfpro.zip "$GITHUB/sahibjotsaggu/San-Francisco-Pro-Fonts/archive/master.zip"
 unzip -qod /tmp /tmp/sfpro.zip
-sudo mv /tmp/San-Francisco-Pro-Fonts-master/*.otf /usr/share/fonts/custom
-sudo mv /tmp/San-Francisco-Pro-Fonts-master/*.ttf /usr/share/fonts/custom
+mv /tmp/San-Francisco-Pro-Fonts-master/*.otf "$FONT_DIR"
+mv /tmp/San-Francisco-Pro-Fonts-master/*.ttf "$FONT_DIR"
 
 # install Meslo Nerd Font
 _info "Installing Meslo Nerd font"
 wget -qO /tmp/meslo.ttf "$GITHUB/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/M-DZ/Regular/complete/Meslo%20LG%20M%20DZ%20Regular%20Nerd%20Font%20Complete%20Mono.ttf"
-sudo mv /tmp/meslo.ttf /usr/share/fonts/custom/MesloLGMDZNerdFontMono.ttf
+mv /tmp/meslo.ttf "$FONT_DIR/MesloLGMDZNerdFontMono.ttf"
 
 # install patched SFPro font with ligatures and symbols
 _info "Installing patched San Francisco font"
 wget -qO /tmp/sfliga.otf "$GITHUB/shaunsingh/SFMono-Nerd-Font-Ligaturized/raw/main/LigaSFMonoNerdFont-Regular.otf"
-sudo mv /tmp/sfliga.otf /usr/share/fonts/custom/LigaSFMonoNerdFont-Regular.otf
+mv /tmp/sfliga.otf "$FONT_DIR/LigaSFMonoNerdFont-Regular.otf"
