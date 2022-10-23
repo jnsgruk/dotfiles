@@ -60,7 +60,8 @@ ln -sf "${REPO}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
 if [[ ! -d "${HOME}/.tmux/plugins/tpm" ]]; then
 	_info "Cloning tmux plugin manager from Github"
 	mkdir -p ${HOME}/.tmux/plugins/tpm
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+	bash "$HOME/.tmux/plugins/tpm/bin/install_plugins"
 fi
 
 # vim config
