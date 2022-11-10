@@ -11,7 +11,7 @@ window#waybar {
 
 window > box {
   margin: 8px 8px 0px 8px;
-  background: rgba(31, 36, 48, 0.4);
+  background: rgba(54, 58, 79, 0.4);
 }
 
 .modules-right {
@@ -33,11 +33,13 @@ window > box {
   font-weight: lighter;
 }
 #workspaces button:hover {
-  color: rgba(255, 213, 128, 1);
+  color: #eed49f;
+	background-color: transparent;
 }
 #workspaces button.focused {
-  color: rgba(255, 213, 128, 1);
+  color: #eed49f;
   font-weight: normal;
+	background: rgba(0,0,0,0);
 }
 
 #clock,
@@ -54,27 +56,29 @@ window > box {
 #custom-menu,
 #idle_inhibitor {
   padding: 0 10px;
+	color: #b7bdf8;
 }
 #mode {
-  color: #cc3436;
+  /*color: #cc3436;*/
   font-weight: bold;
 }
 #custom-power {
-  color: rgba(255, 213, 128, 1);
+	color: #c6a0f6;
+	background: rgba(0,0,0,0);
 }
 /*-----Indicators----*/
 #idle_inhibitor.activated {
-  color: rgba(255, 213, 128, 1);
+  color: #eed49f;
 }
 #battery.charging {
-  color: #2dcc36;
+  color: #a6da95;
 }
 #battery.warning:not(.charging) {
-  color: #e6e600;
+  color: #f5a97f;
 }
 #battery.critical:not(.charging) {
-  color: #cc3436;
+  color: #ed8796;
 }
 #temperature.critical {
-  color: #cc3436;
+  color: #ed8796;
 }
