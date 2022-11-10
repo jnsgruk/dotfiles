@@ -9,6 +9,8 @@ export LIBVIRT_DEFAULT_URI="qemu:///system"
 
 export GDK_CORE_DEVICE_EVENTS=1
 
+export GPG_TTY="$TTY"
+
 # Go config
 export GOPATH="${HOME}/go"
 export GOBIN="${GOPATH}/bin"
