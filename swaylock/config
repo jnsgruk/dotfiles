@@ -1,5 +1,5 @@
 ignore-empty-password
-font=Ubuntu
+font=Liga SFMono Nerd Font
 
 clock
 timestr=%R
@@ -11,7 +11,7 @@ datestr=%a, %e of %B
 #effect-blur=30x2
 #effect-greyscale
 #effect-scale=0.1
-image=/home/jon/pictures/wallpaper.png
+image=/home/jon/pictures/wallpaper.jpg
 
 indicator-idle-visible
 disable-caps-lock-text
