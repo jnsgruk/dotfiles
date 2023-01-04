@@ -31,7 +31,7 @@ if [[ -z $DISPLAY ]] && [[ "$(tty)" = "/dev/tty1" ]]; then
   export QT_QPA_PLATFORM=wayland
   export XDG_CURRENT_DESKTOP=sway
   export XDG_SESSION_DESKTOP=sway
-  export GTK_THEME=Catppuccin-Macchiato
+  export GTK_THEME=Catppuccin-Macchiato-Standard-Blue-Dark
   exec sway >~/.cache/logs_sway.log 2>&1
 fi
 

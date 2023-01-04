@@ -1,0 +1,3 @@
+set recolor
+set selection-clipboard clipboard
+include catppuccin-macchiato

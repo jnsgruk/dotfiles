@@ -37,6 +37,17 @@ alias gst='git status -sb'
 alias wgu='sudo wg-quick up'
 alias wgd='sudo wg-quick down'
 
+alias k="kubectl"
+alias tmux="TERM=xterm-256color tmux"
+
+alias ts="tailscale"
+alias tssh="tailscale ssh"
+alias tst="tailscale status"
+alias tsu="tailscale up --ssh --operator=$USER"
+alias tsd="tailscale down"
+
+alias ctop="docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest"
+
 export STARSHIP_CONFIG="$HOME/.config/starship-plain.toml"
 # source $HOME/.zsh_config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source $HOME/.zsh_config/zsh-autosuggestions/zsh-autosuggestions.zsh

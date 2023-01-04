@@ -44,4 +44,4 @@ alias tst="tailscale status"
 alias tsu="tailscale up --ssh --operator=$USER"
 alias tsd="tailscale down"
 
-alias shellcheck="docker run --rm -v "${PWD}:/mnt" koalaman/shellcheck:stable"
+alias ctop="docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest"
