@@ -11,3 +11,11 @@ function sysssh() {
   fi
 }
 
+function shellcheck() {
+  docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable $@
+}
+
+function shfmt() {
+  docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/mnt" -w /mnt mvdan/shfmt:latest $@
+}
+
