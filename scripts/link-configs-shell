@@ -66,14 +66,9 @@ fi
 
 # vim config
 _info "Linking vim configs"
-mkdir -p "${HOME}/.vim/bundle"
+mkdir -p "${HOME}/.vim/plugged"
 ln -sf "${REPO}/vim/.vimrc" "${HOME}/.vimrc"
 ln -sf "${REPO}/vim/setup.vim" "${HOME}/.vim/setup.vim"
-
-if [[ ! -d "${HOME}/.vim/bundle/Vundle.vim" ]]; then
-	_info "Cloning Vundle from Github"
-	git clone "${GITHUB}/VundleVim/Vundle.vim.git" "${HOME}/.vim/bundle/Vundle.vim"
-fi
 
 _info "Running vim setup script"
 vim -s "${HOME}/.vim/setup.vim"

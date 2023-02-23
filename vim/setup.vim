@@ -1,4 +1,4 @@
 :source $HOME/.vimrc
-:PluginInstall
+:PlugInstall
 :qall
 

@@ -1,11 +1,16 @@
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-	Plugin 'VundleVim/Vundle.vim'
-	Plugin 'itchyny/lightline.vim'
-	Plugin 'catppuccin/vim'
-call vundle#end()
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+	Plug 'itchyny/lightline.vim'
+	Plug 'catppuccin/vim'
+call plug#end()
+
 filetype plugin indent on
 
 set t_Co=256
@@ -22,7 +27,7 @@ syntax on 	"set syntax highlighting on
 set bg=dark	"default to dark background
 set laststatus=2
 
-if filereadable( expand("$HOME/.vim/bundle/vim/colors/catppuccin_macchiato.vim") )
+if filereadable( expand("$HOME/.vim/plugged/vim/colors/catppuccin_macchiato.vim") )
   color catppuccin_macchiato
 endif
 
@@ -42,4 +47,3 @@ set cinkeys=0{,0},:,0#,!^F
 set nocompatible
 
 let g:lightline = {'colorscheme': 'catppuccin_macchiato'}
-  
